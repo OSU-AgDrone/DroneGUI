@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@craco/craco": "^7.1.0"
+  },
+  "devDependencies": {
+    "electron": "^27.1.2",
+    "webpack-node-externals": "^3.0.0"
+  }
+}

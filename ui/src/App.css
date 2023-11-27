@@ -1,0 +1,18 @@
+.App {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 20px;
+}
+
+.capacityContainer {
+  display: flex;
+  align-items: center;
+}

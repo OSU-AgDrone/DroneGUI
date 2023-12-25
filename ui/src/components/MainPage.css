@@ -1,8 +1,0 @@
-.buttonContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    margin-right: 20px;
-    flex-wrap: wrap;
-}

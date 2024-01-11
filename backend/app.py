@@ -8,12 +8,16 @@ def hello_world():
 
 # Establish a connection to the drone ----------------- CHANGE THIS WHEN MULTI-OS CONNECTION SUPPORT IS ADDED
 @app.route('/connect')
-def connect():
+async def connect():
     from functions import find_serial_port, connectToDrone
     serialPort = find_serial_port()
-    drone = connectToDrone(serialPort)
-    print("Drone connected!")
-    return 'Drone connected!'
+    drone = await connectToDrone(serialPort)
+    if drone:
+        print("Drone connected!")
+        return 'Drone connected!'
+    else:
+        print("Drone not connected!")
+        return 'Drone not connected!'
 
 if __name__ == '__main__':
     app.run()

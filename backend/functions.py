@@ -55,6 +55,43 @@ async def connectToDrone(serialPort):
 
     return drone
 
+async def armDrone(drone):
+    '''
+    Arms the drone.
+    Parameters: drone (System) - the drone object
+    
+    '''
+    print("Arming drone")
+    await drone.action.arm()
+
+async def disarmDrone(drone):
+    '''
+    Disarms the drone.
+    Parameters: drone (System) - the drone object
+    
+    '''
+    print("Disarming")
+    await drone.action.disarm()
+
+async def takeoffDrone(drone):
+    '''
+    Takes off the drone.
+    Parameters: drone (System) - the drone object
+    
+    '''
+    print("Taking off")
+    await drone.action.takeoff()
+
+async def landDrone(drone):
+    '''
+    Lands the drone.
+    Parameters: drone (System) - the drone object
+    
+    '''
+    print("Landing")
+    await drone.action.land()
+
+
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(connectToDrone(find_serial_port()))

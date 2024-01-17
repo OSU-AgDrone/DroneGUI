@@ -1,4 +1,4 @@
-from pymavlink import mavutil
+from mavsdk import System
 import asyncio
 import os
 import serial.tools.list_ports
@@ -34,17 +34,26 @@ async def connectToDrone(serialPort):
     '''
     system = platform.system()
     print("Connecting to Drone")
+    drone = System()
 
-    if system == 'Windows':
-        connection = mavutil.mavlink_connection(device=serialPort, baud=57600)
-    elif system == 'Darwin':
-        connection = mavutil.mavlink_connection(device=f"serial://{serialPort}:57600", baud=57600) # needs testing on darwin to determine if baudrate needs to be specified twice
-    else:
-        raise Exception("platform currently not supported")
-    
-    connection.wait_heartbeat()
-    print("Heartbeat from system (system %u component %u)" % (connection.target_system, connection.target_component))
-    return connection
+    # connect to the drone on mac / (all of the operating systems?)
+    await drone.connect(system_address=f"serial://{serialPort}:57600")
+
+    # connect to the drone on windows
+    # if system == 'Windows':
+    #     connection = mavutil.mavlink_connection(device=serialPort, baud=57600)
+    #     connection.wait_heartbeat()
+    #     print("Heartbeat from system (system %u component %u)" % (connection.target_system, connection.target_component))
+
+    # connect to the drone on linux
+    # connection code here
+
+    async for state in drone.core.connection_state():
+        if state.is_connected:
+            print(f"Drone discovered with UUID: {state.uuid}")
+            break
+
+    return drone
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()

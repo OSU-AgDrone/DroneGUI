@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from functions import find_serial_port, connectToDrone, armDrone, disarmDrone, takeoffDrone, landDrone
 
 app = Flask(__name__)
@@ -14,6 +14,7 @@ async def connect():
     drone = await connectToDrone(serialPort)
     if drone:
         print("Drone connected!")
+        session['drone'] = drone # store the drone object in the session to be accessed by other routes
         return 'Drone connected!'
     else:
         print("Drone not connected!")
@@ -22,31 +23,55 @@ async def connect():
 # Display the controls page with buttons
 @app.route('/controls')
 def controls():
-    return render_template('templates/controls.html')
+    return render_template('controls.html')
 
 # Arm the drone
 @app.route('/arm')
 def arm_drone():
-    armDrone()
-    return 'Drone armed!'
+    drone = session.get('drone')
+    if drone:
+        armDrone(drone)
+        print("Drone armed!")
+        return 'Drone armed!'
+    else:
+        print("Drone not connected!")
+        return 'Drone not connected!'
 
 # Disarm the drone
 @app.route('/disarm')
 def disarm_drone():
-    disarmDrone()
-    return 'Drone disarmed!'
+    drone = session.get('drone')
+    if drone:
+        disarmDrone(drone)  # Fix the function call
+        print("Drone disarmed!")
+        return 'Drone disarmed!'
+    else:
+        print("Drone not connected!")
+        return 'Drone not connected!'
 
 # Takeoff the drone
 @app.route('/takeoff')
 def takeoff_drone():
-    takeoffDrone()
-    return 'Drone takeoff!'
+    drone = session.get('drone')
+    if drone:
+        takeoffDrone(drone)  # Fix the function call
+        print("Drone takeoff!")
+        return 'Drone takeoff!'
+    else:
+        print("Drone not connected!")
+        return 'Drone not connected!'
 
 # Land the drone
 @app.route('/land')
 def land_drone():
-    landDrone()
-    return 'Drone landed!'
+    drone = session.get('drone')
+    if drone:
+        landDrone(drone)  # Fix the function call
+        print("Drone landed!")
+        return 'Drone landed!'
+    else:
+        print("Drone not connected!")
+        return 'Drone not connected!'
 
 if __name__ == '__main__':
     app.run()

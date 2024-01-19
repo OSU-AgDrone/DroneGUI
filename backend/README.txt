@@ -1,5 +1,6 @@
 Instructions:
 
+** DOES NOT SUPPORT PYTHON 3.12 (removed imp module, use 3.11 or earlier) **
 To run the application:
     pip3 install -r requirements.txt
     source venv/bin/activate

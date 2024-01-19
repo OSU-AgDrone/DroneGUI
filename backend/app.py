@@ -1,7 +1,8 @@
 from flask import Flask, render_template, session
-from functions import find_serial_port, connectToDrone, armDrone, disarmDrone, takeoffDrone, landDrone
+from functions import find_serial_port, connectToDroneTimeout, armDrone, disarmDrone, takeoffDrone, landDrone
 
 app = Flask(__name__)
+app.secret_key = 'TEMPORARY_SECRET_KEY' # secret key for the session
 
 @app.route('/')
 def hello_world():
@@ -11,7 +12,7 @@ def hello_world():
 @app.route('/connect')
 async def connect():
     serialPort = find_serial_port()
-    drone = await connectToDrone(serialPort)
+    drone = await connectToDroneTimeout(serialPort, 20) # connect to the drone with a failure timeout of 20 seconds
     if drone:
         print("Drone connected!")
         session['drone'] = drone # store the drone object in the session to be accessed by other routes

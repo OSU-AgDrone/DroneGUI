@@ -3,6 +3,7 @@ import asyncio
 import os
 import serial.tools.list_ports
 import platform
+import subprocess
 
 
 def find_serial_port():
@@ -15,7 +16,7 @@ def find_serial_port():
     ports = list(serial.tools.list_ports.comports())
     for port in ports:
         if "USB" in port.description.upper():
-            return port.device
+            return port.device # works on windows & mac
     if system == "Linux":
         # If not found using pyserial, try reading from /dev
         for port in os.listdir('/dev'):
@@ -45,21 +46,22 @@ async def connectToDrone(serialPort):
     Returns: drone (System) - the drone object
     
     '''
-    system = platform.system()
     print("Connecting to Drone")
-    drone = System()
+    system = platform.system()
 
-    # connect to the drone on mac / (all of the operating systems?)
-    await drone.connect(system_address=f"serial://{serialPort}:57600")
+    # To connect on Windows, mavsdk_server_address & port need to be
+    # provided, and bin/mavsdk_server_win32.exe needs to be run using
+    # ./mavsdk_server_win32.exe {CONNECTION_STRING}
+    # e.g ./mavsdk_server_win32.exe serial://COM3:57600
+    connection_string = f"serial://{serialPort}:57600"
 
-    # connect to the drone on windows
-    # if system == 'Windows':
-    #     connection = mavutil.mavlink_connection(device=serialPort, baud=57600)
-    #     connection.wait_heartbeat()
-    #     print("Heartbeat from system (system %u component %u)" % (connection.target_system, connection.target_component))
+    if system == 'Windows':
+        mavsdk_server = subprocess.Popen(['./bin/mavsdk_server_win32.exe', connection_string]) # needs to be killed with mavsdk_server.terminate() when program is killed
+        drone = System(mavsdk_server_address='localhost', port=50051)
+    else:
+        drone = System()
 
-    # connect to the drone on linux
-    # connection code here
+    await drone.connect(system_address=connection_string)
 
     async for state in drone.core.connection_state():
         if state.is_connected:

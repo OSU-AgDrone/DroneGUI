@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Control Panel</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Control Panel</h1>
+    
+    <div>
+        <button onclick="connectToDrone()">Connect to Drone</button>
+        <button onclick="armDrone()">Arm</button>
+        <button onclick="disarmDrone()">Disarm</button>
+        <button onclick="takeoffDrone()">Takeoff</button>
+        <button onclick="landDrone()">Land</button>
+    </div>
+    
+    <script>
+        // Function to send asynchronous request to the server
+        function sendRequest(action) {
+            fetch('/' + action, {
+                method: 'GET',
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+        function connectToDrone() {
+            sendRequest('connect');
+        }
+
+        function armDrone() {
+            sendRequest('arm');
+        }
+
+        function disarmDrone() {
+            sendRequest('disarm');
+        }
+
+        function takeoffDrone() {
+            sendRequest('takeoff');
+        }
+
+        function landDrone() {
+            sendRequest('land');
+        }
+    </script>
+</body>
+</html>

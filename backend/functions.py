@@ -60,6 +60,7 @@ async def connectToDrone(serialPort):
         drone = System(mavsdk_server_address='localhost', port=50051)
     else:
         drone = System()
+        mavsdk_server = None
 
     await drone.connect(system_address=connection_string)
 
@@ -68,7 +69,7 @@ async def connectToDrone(serialPort):
             print(f"Drone discovered and connected!")
             break
 
-    return drone
+    return drone, mavsdk_server
 
 async def armDrone(drone):
     '''

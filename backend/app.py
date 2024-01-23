@@ -3,25 +3,34 @@ from functions import find_serial_port, connectToDroneTimeout, armDrone, disarmD
 
 app = Flask(__name__)
 
-drone_system = None # the drone object
-app.drone_system = drone_system # store the drone object in the app object
+app.drone_system = None # store the drone object in the app object
+app.mavsdk_server = None # store the mavsdk binary process running in the background on windows machines
 
 @app.route('/')
 def hello_world():
     return 'Hello, World!' # prints hello world to the browser
 
-# Establish a connection to the drone ----------------- CHANGE THIS WHEN MULTI-OS CONNECTION SUPPORT IS ADDED
+# Establish a connection to the drone
 @app.route('/connect')
 async def connect():
     serialPort = find_serial_port()
-    drone = await connectToDroneTimeout(serialPort, 20) # connect to the drone with a failure timeout of 20 seconds
+    drone, mavsdk_server = await connectToDroneTimeout(serialPort, 20) # connect to the drone with a failure timeout of 20 seconds
     if drone:
         print("Drone connected!")
         app.drone_system = drone
+        if mavsdk_server:
+            app.mavsdk_server = mavsdk_server
         return 'Drone connected!'
     else:
         print("Drone not connected!")
         return 'Drone not connected!'
+    
+@app.route('/shutdown')
+async def shutdown():
+    if app.mavsdk_server:
+        app.mavsdk_server.terminate()
+        print("Mavsdk binary terminated")
+        return 'Mavsdk binary terminated.'
 
 # Display the controls page with buttons
 @app.route('/controls')

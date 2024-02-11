@@ -1,4 +1,4 @@
-from mavsdk import System
+from mavsdk import System, tune
 import asyncio
 import os
 import serial.tools.list_ports
@@ -106,7 +106,34 @@ async def landDrone(drone):
     print("Landing")
     await drone.action.land()
 
+async def beepDrone(drone):
+    '''
+    Beeps the drone.
+    Parameters: drone (System) - the drone object
+    
+    '''
+    print("Beeping")
+    tune_desc = tune.TuneDescription(
+        song_elements=[tune.SongElement.NOTE_A, tune.SongElement.DURATION_4],
+        tempo=120  # Adjust the tempo as needed (in the range: 32 - 255)
+    )
+
+    await drone.tune.play_tune(tune_desc)
+
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(connectToDrone(find_serial_port()))
+    # loop = asyncio.get_event_loop()
+    # loop.run_until_complete(connectToDrone(find_serial_port()))
+    async def main():
+        # Connect to the drone
+        input("Press Enter to connect to the drone...")
+        serial_port = find_serial_port()
+        print(f"Connecting to drone on {serial_port}...")
+        drone = await connectToDroneTimeout(serial_port, timeout=10)
+
+        # Beep the drone
+        input("Press Enter to beep the drone...")
+        await armDrone(drone)
+        print("Beeped the drone!")
+
+    asyncio.run(main())

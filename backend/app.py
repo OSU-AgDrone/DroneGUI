@@ -1,7 +1,9 @@
 from flask import Flask, render_template
+import asyncio
 from functions import find_serial_port, connectToDroneTimeout, armDrone, disarmDrone, takeoffDrone, landDrone
 
 app = Flask(__name__)
+loop = asyncio.get_event_loop()
 
 drone_system = None # the drone object
 app.drone_system = drone_system # store the drone object in the app object
@@ -28,11 +30,19 @@ async def connect():
 def controls():
     return render_template('controls.html')
 
+# Beep the drone
+@app.route('/beep')
+def beep_drone():
+    from functions import beepDrone
+    if app.drone_system:
+        # beepDrone(app.drone_system)
+        loop.run_until_complete(beepDrone(app.drone_system))
+
 # Arm the drone
 @app.route('/arm')
-async def arm_drone():
+def arm_drone():
     if app.drone_system:
-        await armDrone(app.drone_system)
+        loop.run_until_complete(armDrone(app.drone_system)) # arm the drone
         if app.drone_system.armed:  # Check if the drone is armed
             print("Drone armed!")
             return 'Drone armed!'
@@ -45,9 +55,9 @@ async def arm_drone():
 
 # Disarm the drone
 @app.route('/disarm')
-def disarm_drone():
+async def disarm_drone():
     if app.drone_system:
-        disarmDrone(app.drone_system)  # Fix the function call
+        await app.drone_system.action.disarm()        
         print("Drone disarmed!")
         return 'Drone disarmed!'
     else:

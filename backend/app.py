@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from backend.connection_functions import find_serial_port, connectToDroneTimeout
+from connection_functions import find_serial_port, connectToDroneTimeout
 from mavsdk.mission import Mission, MissionItem, MissionPlan
 import asyncio
 

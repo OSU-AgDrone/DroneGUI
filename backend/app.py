@@ -11,12 +11,13 @@ app.mavsdk_server = None # store the mavsdk binary process running in the backgr
 
 # Decorator to ensure drone is connected
 def check_drone_connected(func):
-    def wrapper():
+    def wrapper(*args, **kwargs):
         if app.drone_system is None:
             print("Drone is not connected.")
         else:
-            func()
-        return wrapper 
+            return func(*args, **kwargs)
+    wrapper.__name__ = func.__name__
+    return wrapper 
 
 @app.route('/')
 def hello_world():
@@ -83,8 +84,8 @@ async def disarm_drone():
 # Takeoff the drone
 @app.route('/takeoff')
 @check_drone_connected
-def takeoff_drone():
-    takeoffDrone(app.drone_system)  # Fix the function call
+async def takeoff_drone():
+    await takeoffDrone(app.drone_system)  # Fix the function call
     print("Drone takeoff!")
     return 'Drone takeoff!'
 

@@ -73,41 +73,7 @@ async def connectToDrone(serialPort):
 
     return drone, mavsdk_server
 
-async def armDrone(drone):
-    '''
-    Arms the drone.
-    Parameters: drone (System) - the drone object
-    
-    '''
-    print("Arming drone")
-    await drone.action.arm()
 
-async def disarmDrone(drone):
-    '''
-    Disarms the drone.
-    Parameters: drone (System) - the drone object
-    
-    '''
-    print("Disarming")
-    await drone.action.disarm()
-
-async def takeoffDrone(drone):
-    '''
-    Takes off the drone.
-    Parameters: drone (System) - the drone object
-    
-    '''
-    print("Taking off")
-    await drone.action.takeoff()
-
-async def landDrone(drone):
-    '''
-    Lands the drone.
-    Parameters: drone (System) - the drone object
-    
-    '''
-    print("Landing")
-    await drone.action.land()
 
 async def beepDrone(drone):
     '''
@@ -122,21 +88,3 @@ async def beepDrone(drone):
     )
 
     await drone.tune.play_tune(tune_desc)
-
-
-if __name__ == "__main__":
-    # loop = asyncio.get_event_loop()
-    # loop.run_until_complete(connectToDrone(find_serial_port()))
-    async def main():
-        # Connect to the drone
-        input("Press Enter to connect to the drone...")
-        serial_port = find_serial_port()
-        print(f"Connecting to drone on {serial_port}...")
-        drone = await connectToDroneTimeout(serial_port, timeout=10)
-
-        # Beep the drone
-        input("Press Enter to beep the drone...")
-        await armDrone(drone)
-        print("Beeped the drone!")
-
-    asyncio.run(main())

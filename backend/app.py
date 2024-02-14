@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from functions import find_serial_port, connectToDroneTimeout, armDrone, disarmDrone, takeoffDrone, landDrone
+from backend.connection_functions import find_serial_port, connectToDroneTimeout
 from mavsdk.mission import Mission, MissionItem, MissionPlan
 import asyncio
 
@@ -53,7 +53,7 @@ def controls():
 # Beep the drone
 @app.route('/beep')
 def beep_drone():
-    from functions import beepDrone
+    from backend.connection_functions import beepDrone
     if app.drone_system:
         # beepDrone(app.drone_system)
         loop.run_until_complete(beepDrone(app.drone_system))
@@ -62,13 +62,9 @@ def beep_drone():
 @app.route('/arm')
 @check_drone_connected
 async def arm_drone():
-    await armDrone(app.drone_system)
-    if app.drone_system.armed:  # Check if the drone is armed
-        print("Drone armed!")
-        return 'Drone armed!'
-    else:
-        print("Drone not armed!")
-        return 'Drone not armed!'
+    await app.drone_system.action.arm()
+    print("Drone armed!")
+    return 'Drone armed!'
 
 # Disarm the drone
 @app.route('/disarm')
@@ -85,7 +81,7 @@ async def disarm_drone():
 @app.route('/takeoff')
 @check_drone_connected
 async def takeoff_drone():
-    await takeoffDrone(app.drone_system)  # Fix the function call
+    await app.drone_system.action.takeoff()
     print("Drone takeoff!")
     return 'Drone takeoff!'
 
@@ -93,7 +89,7 @@ async def takeoff_drone():
 @app.route('/land')
 @check_drone_connected
 def land_drone():
-    landDrone(app.drone_system)  # Fix the function call
+    app.drone_system.action.land()
     print("Drone landed!")
     return 'Drone landed!'
 

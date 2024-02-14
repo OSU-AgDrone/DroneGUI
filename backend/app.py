@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request
 from functions import find_serial_port, connectToDroneTimeout, armDrone, disarmDrone, takeoffDrone, landDrone
 from mavsdk.mission import Mission, MissionItem, MissionPlan
+import asyncio
 
 app = Flask(__name__)
+loop = asyncio.get_event_loop()
 
 app.drone_system = None # store the drone object in the app object
 app.mavsdk_server = None # store the mavsdk binary process running in the background on windows machines
@@ -47,6 +49,14 @@ async def shutdown():
 def controls():
     return render_template('controls.html')
 
+# Beep the drone
+@app.route('/beep')
+def beep_drone():
+    from functions import beepDrone
+    if app.drone_system:
+        # beepDrone(app.drone_system)
+        loop.run_until_complete(beepDrone(app.drone_system))
+
 # Arm the drone
 @app.route('/arm')
 @check_drone_connected
@@ -61,10 +71,14 @@ async def arm_drone():
 
 # Disarm the drone
 @app.route('/disarm')
-def disarm_drone():
-    disarmDrone(app.drone_system)  # Fix the function call
-    print("Drone disarmed!")
-    return 'Drone disarmed!'
+async def disarm_drone():
+    if app.drone_system:
+        await app.drone_system.action.disarm()        
+        print("Drone disarmed!")
+        return 'Drone disarmed!'
+    else:
+        print("Drone not connected!")
+        return 'Drone not connected!'
 
 # Takeoff the drone
 @app.route('/takeoff')

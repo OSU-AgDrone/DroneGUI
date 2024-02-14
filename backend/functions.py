@@ -24,7 +24,7 @@ def find_serial_port():
                 return '/dev/' + port
         raise Exception("No drone found on serial ports.")
     else:
-        raise Exception(f"Unsupported operating system: {system}")
+        raise Exception("Could not find drone telemetry radio. Ensure it is plugged in.")
     
 async def connectToDroneTimeout(serialPort, timeout):
     '''
@@ -68,6 +68,8 @@ async def connectToDrone(serialPort):
         if state.is_connected:
             print(f"Drone discovered and connected!")
             break
+
+    await drone.action.arm()
 
     return drone, mavsdk_server
 

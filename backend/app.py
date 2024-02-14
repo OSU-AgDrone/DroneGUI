@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from backend.connection_functions import find_serial_port, connectToDroneTimeout
+from connection_functions import find_serial_port, connectToDroneTimeout, connectToDroneSim
 from mavsdk.mission import Mission, MissionItem, MissionPlan
 import asyncio
 
@@ -22,6 +22,18 @@ def check_drone_connected(func):
 @app.route('/')
 def hello_world():
     return 'Hello, World!' # prints hello world to the browser
+
+# establish connection to simulated drone
+@app.route('/connect-sim')
+async def connect_sim():
+    drone = await connectToDroneSim()
+    if drone:
+        print("Drone connected!")
+        app.drone_system = drone
+        return 'Drone connected!'
+    else:
+        print("Drone not connected!")
+        return 'Drone not connected!'
 
 # Establish a connection to the drone
 @app.route('/connect')

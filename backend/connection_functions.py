@@ -38,6 +38,15 @@ async def connectToDroneTimeout(serialPort, timeout):
     except asyncio.TimeoutError:
         print("Connection timed out.")
         return None
+    
+async def connectToDroneSim():
+    '''
+    conect to the drone simulator over udp
+    '''
+    print("Connecting to Drone Simulator")
+    drone = System()
+    await drone.connect(system_address="udp://:14540")
+    return drone
 
 async def connectToDrone(serialPort):
     '''

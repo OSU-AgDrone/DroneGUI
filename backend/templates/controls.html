@@ -11,6 +11,7 @@
     
     <div>
         <button onclick="connectToDrone()">Connect to Drone</button>
+        <button onclick="connectToDroneSim()">Connect to Drone Simulator</button>
         <button onclick="armDrone()">Arm</button>
         <button onclick="disarmDrone()">Disarm</button>
         <button onclick="takeoffDrone()">Takeoff</button>
@@ -44,6 +45,10 @@
 
         function connectToDrone() {
             sendRequest('connect');
+        }
+
+        function connectToDroneSim() {
+            sendRequest('connect-sim');
         }
 
         function armDrone() {

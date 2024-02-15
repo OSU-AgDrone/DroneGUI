@@ -17,6 +17,7 @@
         <button onclick="takeoffDrone()">Takeoff</button>
         <button onclick="landDrone()">Land</button>
         <button onclick="beepDrone()">Beep</button>
+        <button onclick="flyProgrammedMission()">Fly Programmed Mission</button>
     </div>
     
     <script>
@@ -65,6 +66,10 @@
 
         function landDrone() {
             sendRequest('land');
+        }
+
+        function flyProgrammedMission() {
+            sendRequest('fly-mission');
         }
     </script>
 </body>

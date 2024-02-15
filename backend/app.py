@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from connection_functions import find_serial_port, connectToDroneTimeout, connectToDroneSim
 from mavsdk.mission import Mission, MissionItem, MissionPlan
+from mavsdk.async_plugin_manager import AsyncPluginManager
 import asyncio
 
 app = Flask(__name__)
 loop = asyncio.get_event_loop()
+plugin_manager = AsyncPluginManager()
 
 app.drone_system = None # store the drone object in the app object
 app.mavsdk_server = None # store the mavsdk binary process running in the background on windows machines
@@ -21,7 +23,8 @@ def check_drone_connected(func):
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!' # prints hello world to the browser
+    
+    return redirect("/controls") # prints hello world to the browser
 
 # establish connection to simulated drone
 @app.route('/connect-sim')
@@ -65,15 +68,17 @@ def controls():
 # Beep the drone
 @app.route('/beep')
 def beep_drone():
-    from backend.connection_functions import beepDrone
+    from connection_functions import beepDrone
     if app.drone_system:
         # beepDrone(app.drone_system)
         loop.run_until_complete(beepDrone(app.drone_system))
 
 # Arm the drone
 @app.route('/arm')
-@check_drone_connected
+# @check_drone_connected
 async def arm_drone():
+    print("Arming drone")
+    await app.drone_system.connect()
     await app.drone_system.action.arm()
     print("Drone armed!")
     return 'Drone armed!'
@@ -91,7 +96,7 @@ async def disarm_drone():
 
 # Takeoff the drone
 @app.route('/takeoff')
-@check_drone_connected
+# @check_drone_connected
 async def takeoff_drone():
     await app.drone_system.action.takeoff()
     print("Drone takeoff!")
@@ -99,21 +104,25 @@ async def takeoff_drone():
 
 # Land the drone
 @app.route('/land')
-@check_drone_connected
-def land_drone():
-    app.drone_system.action.land()
+# @check_drone_connected
+async def land_drone():
+    await app.drone_system.action.land()
     print("Drone landed!")
     return 'Drone landed!'
 
 @app.route('/fly-mission')
-@check_drone_connected
-def fly_mission():
+# @check_drone_connected
+async def fly_mission():
     if app.drone_system:
         mission_items = []
-        waypoint_vectors = request.args.get('waypoint_vectors')
-        relative_altitude_m = request.args.get('relative_altitude_m')
-        speed_m_s = request.args.get('speed_m_s')
-        is_fly_through = request.args.get('is_fly_through')
+        # waypoint_vectors = request.args.get('waypoint_vectors')
+        # relative_altitude_m = request.args.get('relative_altitude_m')
+        # speed_m_s = request.args.get('speed_m_s')
+        # is_fly_through = request.args.get('is_fly_through')
+        waypoint_vectors = [(47.402, 8.552), (47.40, 8.55)]
+        relative_altitude_m = 5
+        speed_m_s = 5
+        is_fly_through = True
 
         for i in range(len(waypoint_vectors)):
             mission_items.append(
@@ -122,17 +131,31 @@ def fly_mission():
                     waypoint_vectors[i][1],
                     relative_altitude_m,
                     speed_m_s,
-                    is_fly_through
+                    is_fly_through, 
+                    float("nan"), 
+                    float("nan"), 
+                    MissionItem.CameraAction.NONE, 
+                    float("nan"), 
+                    float("nan"), 
+                    float("nan"), 
+                    float("nan"), 
+                    float("nan"), 
+                    MissionItem.VehicleAction.NONE
                 )
             )
 
         plan = MissionPlan(mission_items)
 
-        mission = Mission()
+        # uploading mission
+        print("uploading mission")
+        await app.drone_system.mission.upload_mission(plan)
 
-        mission.upload_mission(plan)
+        await app.drone_system.action.arm()
 
-        mission.start_mission()
+        # start mission
+        print("starting mission")
+        await app.drone_system.mission.start_mission()
+        return 'Mission started!'
         
 if __name__ == '__main__':
     app.run()

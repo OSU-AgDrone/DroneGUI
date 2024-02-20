@@ -125,12 +125,12 @@ async def fly_mission():
             print(f"-- Connected to drone!")
             break
     if drone:
-        example_points = [ # this is the example from mavsdk. should correspond to europe
+        example_waypoints = [ # this is the example from mavsdk. should correspond to europe
             {"lat": 47.3980398, "lng": 8.5455725},         
             {"lat": 47.3980362, "lng": 8.54501464}, 
             {"lat": 47.3978256, "lng": 8.54500928}
         ]
-        plan = generate_mission_plan(example_points)
+        plan = generate_mission_plan(example_waypoints)
     
         await drone.mission.set_return_to_launch_after_mission(True)
 

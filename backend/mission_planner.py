@@ -13,11 +13,11 @@ example output from front end of boundaries:
 -> this is a rectangle where the first and last points are the same
 """
 
-def generate_mission_plan(boundaries, altitude=5, speed=5, is_fly_through=True, loiter_time=float("nan"), vehicle_action=MissionItem.VehicleAction.NONE):
+def generate_mission_plan(waypoints, altitude=5, speed=5, is_fly_through=True, loiter_time=float("nan"), vehicle_action=MissionItem.VehicleAction.NONE):
     """
-    Generates a mission from the given boundaries and parameters
+    Generates a mission from the given waypoints and parameters
     inputs:
-    - boundaries: list of dictionaries, each containing a lat and lng key
+    - waypoints: list of dictionaries, each containing a lat and lng key
     - altitude: float, the altitude of the mission
     - speed: float, the speed of the mission
     - is_fly_through: boolean, whether the drone should fly through the waypoints
@@ -27,11 +27,11 @@ def generate_mission_plan(boundaries, altitude=5, speed=5, is_fly_through=True, 
 
     mission_items = []
 
-    for i in range(len(boundaries)):
+    for i in range(len(waypoints)):
         mission_items.append(
             MissionItem(
-                boundaries[i]["lat"],
-                boundaries[i]["lng"],
+                waypoints[i]["lat"],
+                waypoints[i]["lng"],
                 altitude,
                 speed,
                 is_fly_through, 

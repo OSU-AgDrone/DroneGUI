@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, redirect
-from connection_functions import find_serial_port, connectToDroneTimeout, connectToDroneSim
 from mavsdk.mission import Mission, MissionItem, MissionPlan
 from mavsdk.async_plugin_manager import AsyncPluginManager
 import asyncio
+from mavsdk import System
+
+from connection_functions import find_serial_port, connectToDroneTimeout, connectToDroneSim
+from mission_planner import generate_mission_plan
 
 app = Flask(__name__)
 loop = asyncio.get_event_loop()
@@ -113,48 +116,33 @@ async def land_drone():
 @app.route('/fly-mission')
 # @check_drone_connected
 async def fly_mission():
-    if app.drone_system:
-        mission_items = []
-        # waypoint_vectors = request.args.get('waypoint_vectors')
-        # relative_altitude_m = request.args.get('relative_altitude_m')
-        # speed_m_s = request.args.get('speed_m_s')
-        # is_fly_through = request.args.get('is_fly_through')
-        waypoint_vectors = [(47.402, 8.552), (47.40, 8.55)]
-        relative_altitude_m = 5
-        speed_m_s = 5
-        is_fly_through = True
+    drone = System()
+    await drone.connect(system_address="udp://:14540")
 
-        for i in range(len(waypoint_vectors)):
-            mission_items.append(
-                MissionItem(
-                    waypoint_vectors[i][0],
-                    waypoint_vectors[i][1],
-                    relative_altitude_m,
-                    speed_m_s,
-                    is_fly_through, 
-                    float("nan"), 
-                    float("nan"), 
-                    MissionItem.CameraAction.NONE, 
-                    float("nan"), 
-                    float("nan"), 
-                    float("nan"), 
-                    float("nan"), 
-                    float("nan"), 
-                    MissionItem.VehicleAction.NONE
-                )
-            )
-
-        plan = MissionPlan(mission_items)
+    print("Waiting for drone to connect...")
+    async for state in drone.core.connection_state():
+        if state.is_connected:
+            print(f"-- Connected to drone!")
+            break
+    if drone:
+        example_points = [ # this is the example from mavsdk. should correspond to europe
+            {"lat": 47.3980398, "lng": 8.5455725},         
+            {"lat": 47.3980362, "lng": 8.54501464}, 
+            {"lat": 47.3978256, "lng": 8.54500928}
+        ]
+        plan = generate_mission_plan(example_points)
+    
+        await drone.mission.set_return_to_launch_after_mission(True)
 
         # uploading mission
         print("uploading mission")
-        await app.drone_system.mission.upload_mission(plan)
+        await drone.mission.upload_mission(plan)
 
-        await app.drone_system.action.arm()
+        await drone.action.arm()
 
         # start mission
         print("starting mission")
-        await app.drone_system.mission.start_mission()
+        await drone.mission.start_mission()
         return 'Mission started!'
         
 if __name__ == '__main__':

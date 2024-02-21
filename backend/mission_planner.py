@@ -1,4 +1,5 @@
 from mavsdk.mission import MissionItem, MissionPlan
+import matplotlib.pyplot as plt
 
 
 """
@@ -35,14 +36,36 @@ def generate_waypoints_from_boundaries(boundaries):
     height = y_max - y_min
     width = x_max - x_min
 
-    waypoints = []
+    num_paths = height // DRONE_DIAMETER
 
-    for row in range(0, int(height/DRONE_DIAMETER)):
-        # points at and beginning and end of the row, where the waypoint is 1/2 the drone diameter away from the boundary
-        waypoints.append({"lat": y_max - row*DRONE_DIAMETER, "lng": x_min + DRONE_DIAMETER/2})
-        waypoints.append({"lat": y_max - row*DRONE_DIAMETER, "lng": x_max - DRONE_DIAMETER/2})
+    waypoints = []
+    left_waypoints = []
+    right_waypoints = []
+
+    # add starting point
+    left_waypoints.append({"lat": y_min, "lng": x_min})
+
+    # (xmin, ymin+ a/2D), (xmin, ymin+ 3a/2D), (xmin, ymin+ 5a/2D), etc
+    odd_num = 1
+    for i in range(int(num_paths)):
+        # add left waypoints
+        left_waypoints.append({"lat": y_min + (odd_num*height)/(2 * DRONE_DIAMETER), "lng": x_min})
+        right_waypoints.append({"lat": y_min + (odd_num*height)/(2 * DRONE_DIAMETER), "lng": x_max})
+        odd_num += 2
+    
+    # add ending point
+    right_waypoints.append({"lat": y_max, "lng": x_max})
+
+    while (left_waypoints) or (right_waypoints):
+        waypoints.append(left_waypoints.pop(0))
+        if left_waypoints:
+            waypoints.append(left_waypoints.pop(0))
+        waypoints.append(right_waypoints.pop(0))
+        if right_waypoints:
+            waypoints.append(right_waypoints.pop(0))
 
     return waypoints
+
 
 def visualize_waypoints(waypoints, boundaries):
     """
@@ -51,23 +74,36 @@ def visualize_waypoints(waypoints, boundaries):
     - waypoints: list of dictionaries, each containing a lat and lng key
     - boundaries: list of dictionaries, each containing a lat and lng key
     """
-    import matplotlib.pyplot as plt
-
     print("waypoints: ", waypoints)
     print("boundaries: ", boundaries)
 
-    # plot the boundary lines in blue
-    for i in range(len(boundaries)-1):
-        plt.plot([boundaries[i]["lng"], boundaries[i+1]["lng"]], [boundaries[i]["lat"], boundaries[i+1]["lat"]], 'b')
+    # Extract latitudes and longitudes for boundaries
+    boundary_lats = [point["lat"] for point in boundaries]
+    boundary_lngs = [point["lng"] for point in boundaries]
 
-    # plot the waypoints in red
-    for i in range(len(waypoints)):
-        plt.plot(waypoints[i]["lng"], waypoints[i]["lat"], 'ro')
+    # Extract latitudes and longitudes for waypoints
+    waypoint_lats = [point["lat"] for point in waypoints]
+    waypoint_lngs = [point["lng"] for point in waypoints]
 
+    # Plot the boundary lines in blue
+    plt.plot(boundary_lngs, boundary_lats, 'b')
+
+    # Plot the waypoints in red
+    plt.plot(waypoint_lngs, waypoint_lats, 'ro')
+
+    # Plot a path connecting the waypoints
+    for i in range(len(waypoints) - 1):
+        plt.plot([waypoint_lngs[i], waypoint_lngs[i + 1]], [waypoint_lats[i], waypoint_lats[i + 1]], 'r--')
+
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    plt.title('Waypoints and Boundaries Visualization')
+    plt.grid(True)
     plt.show()
 
 
-def generate_mission_plan(waypoints, altitude=5, speed=5, is_fly_through=True, loiter_time=float("nan"), vehicle_action=MissionItem.VehicleAction.NONE):
+
+def generate_mission_plan(waypoints, altitude=5, speed=5, is_fly_through=True, loiter_time=float("nan"), vehicle_action=float("nan")): 
     """
     Generates a mission from the given waypoints and parameters
     inputs:

@@ -1,0 +1,25 @@
+/* Navbar CSS */
+.navbar{
+    z-index: 99999;
+    position: sticky absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 2em;
+    background: var(--background-color);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+}
+
+#routes, #home, #setting{
+    background: orange;
+    border: none;
+    cursor: pointer;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    text-decoration: none;
+    box-shadow: 0 0 0 1px #c97018;
+
+}
+

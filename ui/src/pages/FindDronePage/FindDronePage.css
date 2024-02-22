@@ -1,0 +1,61 @@
+.pageContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.mapContainer {
+    border: 1px solid black;
+    width: 80%;
+    float: left;
+    height: 80vh;
+    margin: 0% 3%;
+    text-align: center;
+}
+
+.button-container {
+    float: right;
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.title {
+    text-align: center;
+}
+
+#backButton {
+   width: 0;
+   padding: 0;
+}
+
+#activeButton {
+    background-color: #0d9e31; 
+    color: #ffffff;
+}
+
+#activeButton img {
+    filter: invert(100%) hue-rotate(180deg);
+}
+
+#activeButton:hover {
+    background-color: #dc0808; 
+    color: #ffffff;
+}
+
+#activeButton:hover img {
+    filter: invert(100%) hue-rotate(180deg);
+}
+
+.findDroneButton {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex; 
+    justify-content: center;
+    align-items: center;  
+    margin-bottom:2rem;  
+    max-width: 15rem;
+}
+
+html[data-theme="dark"] .findDroneButton, html[data-theme="black"] .findDroneButton  {
+    box-shadow: .5px 2px 4px .5px rgba(255, 255, 255, 0.603);
+}

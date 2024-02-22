@@ -36,3 +36,12 @@
     cursor: pointer;
     width: 30vw;
 }
+
+html[data-theme="dark"] .routePlanningButton, html[data-theme="black"] .routePlanningButton  {
+    box-shadow: .5px 2px 4px .5px rgba(255, 255, 255, 0.603);
+ }
+
+#backButton {
+   width: 0;
+   padding: 0;
+}

@@ -45,28 +45,54 @@ def xy_to_ll(x, y):
     lng = x / R * 180 / 3.14159
     return {"lat": lat, "lng": lng}
 
+def get_x_coordinate(y, x1, y1, slope):
+    """ 
+    Helper function for generate_waypoints_from_boundaries. 
+    Returns the x coordinate given a y coordinate and a slope.
+    """
+    return x1 + (y - y1) / slope
+
 def generate_waypoints_from_boundaries(boundaries):
     """
-    Generates a list of waypoints from a list of boundary points. Currently generates a basic square wave pattern through area
+    Generates a list of waypoints from a list of boundary points. Currently generates a basic square wave pattern 
+    through area defined by boundaries.
     inputs:
     - boundaries: list of dictionaries, each containing a x and y key
 
     limitations: 
     - boundaries must currently represent a rectangle (first and last points are the same) len(boundaries) == 5
     """
-    DRONE_DIAMETER = 2 # meters ADJUST
+    DRONE_DIAMETER = 2  # meters ADJUST
 
     if len(boundaries) != 5:
         raise ValueError("Boundaries must represent a rectangle. len(boundaries) must be 5.")
+    
+    # Get the two minimum x left boundary points
+    x_left_1 = min(boundaries, key=lambda x: x["x"])["x"]
+    y_left_1 = min(boundaries, key=lambda x: x["x"])["y"]
+    
+    # Find the next smallest x-value that is greater than x_left_1
+    next_smallest_x_left = min(boundary["x"] for boundary in boundaries if boundary["x"] != x_left_1)
+    x_left_2 = next_smallest_x_left
+    y_left_2 = next(boundary["y"] for boundary in boundaries if boundary["x"] == next_smallest_x_left)
+   
+    left_boundary_slope = (y_left_2 - y_left_1) / (x_left_2 - x_left_1)
 
+    # Get the two maximum x right boundary points
+    x_right_1 = max(boundaries, key=lambda x: x["x"])["x"]
+    y_right_1 = max(boundaries, key=lambda x: x["x"])["y"]
+    
+    # Find the next largest x-value that is less than x_right_1
+    next_largest_x_right = max(boundary["x"] for boundary in boundaries if boundary["x"] != x_right_1)
+    x_right_2 = next_largest_x_right
+    y_right_2 = next(boundary["y"] for boundary in boundaries if boundary["x"] == next_largest_x_right)
+
+    right_boundary_slope = (y_right_2 - y_right_1) / (x_right_2 - x_right_1)
+
+    # y values for spacing of flight rows
     y_max = max(boundaries, key=lambda x: x["y"])["y"]
     y_min = min(boundaries, key=lambda x: x["y"])["y"]
-    x_max = max(boundaries, key=lambda x: x["x"])["x"]
-    x_min = min(boundaries, key=lambda x: x["x"])["x"]
-
     height = y_max - y_min
-    width = x_max - x_min
-
     num_paths = height // DRONE_DIAMETER # p
 
     waypoints = []
@@ -74,20 +100,20 @@ def generate_waypoints_from_boundaries(boundaries):
     right_waypoints = []
 
     # add starting point
-    left_waypoints.append({"y": y_min, "x": x_min})
+    left_waypoints.append({"y": y_min, "x": get_x_coordinate(y_min, x_left_1, y_left_1, left_boundary_slope)})
 
     # (xmin, ymin+ a/2D), (xmin, ymin+ 3a/2p), (xmin, ymin+ 5a/2p), etc
     odd_num = 1
     for i in range(int(num_paths)):
-        ## TODO: bind the x values to the vectors created by the boundaries instead of x min and max
+        y_coordinate = y_min + (odd_num*height)/(2 * num_paths)
 
         # add waypoints
-        left_waypoints.append({"y": y_min + (odd_num*height)/(2 * num_paths), "x": x_min})
-        right_waypoints.append({"y": y_min + (odd_num*height)/(2 * num_paths), "x": x_max})
+        left_waypoints.append({"y": y_coordinate, "x": get_x_coordinate(y_coordinate, x_left_1, y_left_1, left_boundary_slope)})
+        right_waypoints.append({"y": y_coordinate, "x": get_x_coordinate(y_coordinate, x_right_1, y_right_1, right_boundary_slope)})
         odd_num += 2
     
     # add ending point
-    right_waypoints.append({"y": y_max, "x": x_max})
+    right_waypoints.append({"y": y_max, "x": get_x_coordinate(y_max, x_right_1, y_right_1, right_boundary_slope)})
 
     # combine left and right waypoints
     while (left_waypoints) or (right_waypoints):
@@ -99,7 +125,6 @@ def generate_waypoints_from_boundaries(boundaries):
             waypoints.append(right_waypoints.pop(0))
 
     return waypoints
-
 
 def visualize_waypoints_xy(waypoints, boundaries):
     """

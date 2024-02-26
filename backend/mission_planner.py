@@ -198,6 +198,22 @@ def generate_mission_plan(waypoints, altitude=5, speed=5, is_fly_through=True, l
 
     return MissionPlan(mission_items)
 
+def plan_from_boundaries(boundaries, altitude=5, speed=5, is_fly_through=True, loiter_time=float("nan"), vehicle_action=float("nan")):
+    """
+    Generates a mission plan from the given boundaries and parameters
+    inputs:
+    - boundaries: list of dictionaries, each containing a lat and lng key
+    - altitude: float, the altitude of the mission
+    - speed: float, the speed of the mission
+    - is_fly_through: boolean, whether the drone should fly through the waypoints
+    - loiter_time: float, the time to loiter at each waypoint
+    - vehicle_action: MissionItem.VehicleAction, the action to take at each waypoint
+    """
+    converted_boundaries = [lat_lng_to_xy(point["lat"], point["lng"]) for point in boundaries]
+    waypoints = generate_waypoints_from_boundaries(converted_boundaries)
+    ll_waypoints = [xy_to_ll(point["x"], point["y"]) for point in waypoints]
+    return generate_mission_plan(ll_waypoints, altitude, speed, is_fly_through, loiter_time, vehicle_action)
+
 
 if __name__ == "__main__":
     example_waypoints = [ # this is the example from mavsdk. should correspond to europe
@@ -214,15 +230,17 @@ if __name__ == "__main__":
         { "lat": 44.56441439616401, "lng": -123.2792677605855 } 
     ]
 
-    ## EXAMPLE USAGE
+    ## EXAMPLE USAGE or plan_from_boundaries
     # convert boundaries to xy
     converted_boundaries = [lat_lng_to_xy(point["lat"], point["lng"]) for point in example_boundaries]
     # generate waypoints through boundaries
     waypoints = generate_waypoints_from_boundaries(converted_boundaries)
     visualize_waypoints_xy(waypoints, converted_boundaries)
+
     # convert waypoints to lat and lng
     ll_waypoints = [xy_to_ll(point["x"], point["y"]) for point in waypoints]
     visualize_waypoints_ll(ll_waypoints, example_boundaries)
+    
     # create mission plan
     mission_plan = generate_mission_plan(ll_waypoints)
     print(mission_plan)

@@ -1,3 +1,8 @@
+"""
+This is a testing script for an example mission from the mavsdk documentation. It is to be used in SIM.
+"""
+
+
 #!/usr/bin/env python3
 
 import asyncio

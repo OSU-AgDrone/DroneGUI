@@ -5,7 +5,7 @@ import asyncio
 from mavsdk import System
 
 from connection_functions import find_serial_port, connectToDroneTimeout, connectToDroneSim
-from mission_planner import generate_mission_plan
+from mission_planner import plan_from_boundaries, generate_mission_plan
 
 app = Flask(__name__)
 loop = asyncio.get_event_loop()
@@ -113,6 +113,7 @@ async def land_drone():
     print("Drone landed!")
     return 'Drone landed!'
 
+# CURRENTLY A TESTING ROUTE. 
 @app.route('/fly-mission')
 # @check_drone_connected
 async def fly_mission():
@@ -130,6 +131,7 @@ async def fly_mission():
             {"lat": 47.3980362, "lng": 8.54501464}, 
             {"lat": 47.3978256, "lng": 8.54500928}
         ]
+
         plan = generate_mission_plan(example_waypoints)
     
         await drone.mission.set_return_to_launch_after_mission(True)
@@ -144,6 +146,9 @@ async def fly_mission():
         print("starting mission")
         await drone.mission.start_mission()
         return 'Mission started!'
+    
+## TODO: Add a route to generate a mission plan from the boundaries provided by frontend.
+    # will use the plan_from_boundaries function from mission_planner.py
         
 if __name__ == '__main__':
     app.run()

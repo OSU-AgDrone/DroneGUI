@@ -79,7 +79,9 @@ def generate_waypoints_from_boundaries(boundaries):
     # (xmin, ymin+ a/2D), (xmin, ymin+ 3a/2p), (xmin, ymin+ 5a/2p), etc
     odd_num = 1
     for i in range(int(num_paths)):
-        # add left waypoints
+        ## TODO: bind the x values to the vectors created by the boundaries instead of x min and max
+
+        # add waypoints
         left_waypoints.append({"y": y_min + (odd_num*height)/(2 * num_paths), "x": x_min})
         right_waypoints.append({"y": y_min + (odd_num*height)/(2 * num_paths), "x": x_max})
         odd_num += 2
@@ -240,7 +242,7 @@ if __name__ == "__main__":
     # convert waypoints to lat and lng
     ll_waypoints = [xy_to_ll(point["x"], point["y"]) for point in waypoints]
     visualize_waypoints_ll(ll_waypoints, example_boundaries)
-    
+
     # create mission plan
     mission_plan = generate_mission_plan(ll_waypoints)
     print(mission_plan)

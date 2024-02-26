@@ -66,9 +66,8 @@ def generate_waypoints_from_boundaries(boundaries):
 
     height = y_max - y_min
     width = x_max - x_min
-    print("height: ", height)
 
-    num_paths = height // DRONE_DIAMETER
+    num_paths = height // DRONE_DIAMETER # p
 
     waypoints = []
     left_waypoints = []
@@ -77,8 +76,7 @@ def generate_waypoints_from_boundaries(boundaries):
     # add starting point
     left_waypoints.append({"y": y_min, "x": x_min})
 
-    # (xmin, ymin+ a/2D), (xmin, ymin+ 3a/2D), (xmin, ymin+ 5a/2D), etc
-    print ("num_paths: ", num_paths)
+    # (xmin, ymin+ a/2D), (xmin, ymin+ 3a/2p), (xmin, ymin+ 5a/2p), etc
     odd_num = 1
     for i in range(int(num_paths)):
         # add left waypoints
@@ -89,9 +87,7 @@ def generate_waypoints_from_boundaries(boundaries):
     # add ending point
     right_waypoints.append({"y": y_max, "x": x_max})
 
-    print("left waypoints: ", left_waypoints)
-    print("right waypoints: ", right_waypoints)
-
+    # combine left and right waypoints
     while (left_waypoints) or (right_waypoints):
         waypoints.append(left_waypoints.pop(0))
         if left_waypoints:
@@ -183,7 +179,7 @@ def generate_mission_plan(waypoints, altitude=5, speed=5, is_fly_through=True, l
 
     for i in range(len(waypoints)):
         mission_items.append(
-            MissionItem(
+            MissionItem( 
                 waypoints[i]["lat"],
                 waypoints[i]["lng"],
                 altitude,
@@ -192,11 +188,10 @@ def generate_mission_plan(waypoints, altitude=5, speed=5, is_fly_through=True, l
                 float("nan"), 
                 float("nan"), 
                 MissionItem.CameraAction.NONE, 
-                float("nan"), 
-                float("nan"), 
-                float("nan"), 
-                float("nan"), 
                 loiter_time, 
+                float("nan"), 
+                float("nan"), 
+                float("nan"), 
                 vehicle_action
             )
         )

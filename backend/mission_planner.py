@@ -16,7 +16,7 @@ example output from front end of boundaries:
 
 def lat_lng_to_xy(lat, lng):
     """
-    Converts latitude and longitude to x and y coordinates. Uses Equirectangular projection to approximate the values.
+    Converts latitude and longitude to x and y coordinates. 
     inputs:
     - lat: float, the latitude
     - lng: float, the longitude
@@ -29,6 +29,21 @@ def lat_lng_to_xy(lat, lng):
     x = R * lng * 3.14159 / 180 # may need to adjust this formula
     y = R * lat * 3.14159 / 180
     return {"x": x, "y": y}
+
+def xy_to_ll(x, y):
+    """
+    Converts x and y coordinates to latitude and longitude. 
+    inputs:
+    - x: float, the x coordinate (in meters)
+    - y: float, the y coordinate (in meters)
+    returns:
+    - lat: float, the latitude
+    - lng: float, the longitude
+    """
+    R = 6371000 # radius of the earth in meters
+    lat = y / R * 180 / 3.14159
+    lng = x / R * 180 / 3.14159
+    return {"lat": lat, "lng": lng}
 
 def generate_waypoints_from_boundaries(boundaries):
     """
@@ -88,15 +103,13 @@ def generate_waypoints_from_boundaries(boundaries):
     return waypoints
 
 
-def visualize_waypoints(waypoints, boundaries):
+def visualize_waypoints_xy(waypoints, boundaries):
     """
     Visualizes the waypoints and boundaries on a graph. Boundaries in blue, waypoints in red
     inputs:
     - waypoints: list of dictionaries, each containing a y and x key
     - boundaries: list of dictionaries, each containing a y and x key
     """
-    print("waypoints: ", waypoints)
-    print("boundaries: ", boundaries)
 
     # Extract y and x for boundaries
     boundary_ys = [point["y"] for point in boundaries]
@@ -116,12 +129,42 @@ def visualize_waypoints(waypoints, boundaries):
     for i in range(len(waypoints) - 1):
         plt.plot([waypoint_xs[i], waypoint_xs[i + 1]], [waypoint_ys[i], waypoint_ys[i + 1]], 'r--')
 
-    plt.xlabel('x Longitude')
-    plt.ylabel('y Latitude')
+    plt.xlabel('x')
+    plt.ylabel('y')
     plt.title('Waypoints and Boundaries Visualization')
     plt.grid(True)
     plt.show()
 
+def visualize_waypoints_ll(waypoints, boundaries):
+    """
+    Visualizes the waypoints and boundaries on a graph. Boundaries in blue, waypoints in red
+    inputs:
+    - waypoints: list of dictionaries, each containing a lat and lng key
+    - boundaries: list of dictionaries, each containing a lat and lng key
+    """
+    # Extract lat and lng for boundaries
+    boundary_lats = [point["lat"] for point in boundaries]
+    boundary_lngs = [point["lng"] for point in boundaries]
+
+    # Extract lat and lng for waypoints
+    waypoint_lats = [point["lat"] for point in waypoints]
+    waypoint_lngs = [point["lng"] for point in waypoints]
+
+    # Plot the boundary lines in blue
+    plt.plot(boundary_lngs, boundary_lats, 'b')
+
+    # Plot the waypoints in red
+    plt.plot(waypoint_lngs, waypoint_lats, 'ro')
+
+    # Plot a path connecting the waypoints
+    for i in range(len(waypoints) - 1):
+        plt.plot([waypoint_lngs[i], waypoint_lngs[i + 1]], [waypoint_lats[i], waypoint_lats[i + 1]], 'r--')
+
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    plt.title('Waypoints and Boundaries Visualization')
+    plt.grid(True)
+    plt.show()
 
 
 def generate_mission_plan(waypoints, altitude=5, speed=5, is_fly_through=True, loiter_time=float("nan"), vehicle_action=float("nan")): 
@@ -176,35 +219,18 @@ if __name__ == "__main__":
         { "lat": 44.56441439616401, "lng": -123.2792677605855 } 
     ]
 
-    # points = [lat_lng_to_xy(point["lat"], point["lng"]) for point in example_boundaries]
-    # for point in example_boundaries:
-    #     x, y = lat_lng_to_xy(point["lat"], point["lng"])
-    #     print("x: ", x, "y: ", y, "point: ", point)
-
-    # # plot points
-    # x = [point[0] for point in points]
-    # y = [point[1] for point in points]
-
-    # plt.plot(x, y)
-    # plt.show()
+    ## EXAMPLE USAGE
+    # convert boundaries to xy
     converted_boundaries = [lat_lng_to_xy(point["lat"], point["lng"]) for point in example_boundaries]
-    print("converted boundaries: ", converted_boundaries)
-    print("y max: ", max(converted_boundaries, key=lambda x: x["y"])["y"])
-    print("y min: ", min(converted_boundaries, key=lambda x: x["y"])["y"])
-    print("x max: ", max(converted_boundaries, key=lambda x: x["x"])["x"])
-    print("x min: ", min(converted_boundaries, key=lambda x: x["x"])["x"])
+    # generate waypoints through boundaries
     waypoints = generate_waypoints_from_boundaries(converted_boundaries)
-    # print("generated waypoints: ", waypoints)
-    print("y_waypoint_max: ", max(waypoints, key=lambda x: x["y"])["y"])
-    print("y_waypoint_min: ", min(waypoints, key=lambda x: x["y"])["y"])
-    print("x_waypoint_max: ", max(waypoints, key=lambda x: x["x"])["x"])
-    print("x_waypoint_min: ", min(waypoints, key=lambda x: x["x"])["x"])
-    visualize_waypoints(waypoints, converted_boundaries)
+    visualize_waypoints_xy(waypoints, converted_boundaries)
+    # convert waypoints to lat and lng
+    ll_waypoints = [xy_to_ll(point["x"], point["y"]) for point in waypoints]
+    visualize_waypoints_ll(ll_waypoints, example_boundaries)
+    # create mission plan
+    mission_plan = generate_mission_plan(ll_waypoints)
+    print(mission_plan)
 
-    #print the y difference between the first and second waypoint, and the third and fourth waypoint
-    print("y difference between first and second waypoint: ", waypoints[1]["y"] - waypoints[0]["y"])
-    print("y difference between third and fourth waypoint: ", waypoints[3]["y"] - waypoints[2]["y"])
 
-    # mission_plan = generate_mission_plan(example_waypoints)
-    # print(mission_plan)
 

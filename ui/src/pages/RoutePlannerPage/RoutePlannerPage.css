@@ -1,26 +1,25 @@
 .pageContainer {
-    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    width: 90vw;
+    max-width: 92vw;
+    padding: 20px; 
+    max-height: 1px;
 }
 
 .mapContainer {
-    border: 1px solid black;
-    width: 70%;
-    float: left;
-    height: 80vh;
-    margin: 0% 3%;
-    text-align: center;
+    position: relative;
 }
 
 .button-container {
-    width: 50%;
-    float: right;
     display: flex;
     flex-direction: column;
-    height: 80vh;
-    margin: 0% 3%;
-
+    justify-content: start;
+    align-items: center;
+    padding: 20px;
+    width: 30%;
 }
 
 .title {
@@ -40,8 +39,3 @@
 html[data-theme="dark"] .routePlanningButton, html[data-theme="black"] .routePlanningButton  {
     box-shadow: .5px 2px 4px .5px rgba(255, 255, 255, 0.603);
  }
-
-#backButton {
-   width: 0;
-   padding: 0;
-}

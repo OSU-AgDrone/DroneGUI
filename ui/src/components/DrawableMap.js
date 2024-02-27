@@ -29,7 +29,7 @@ export default function MapDrawShape(props) {
   }
 
   function onDrawCallback(shape) {
-    console.log(shape);
+    props.callback(shape)
 
     setState(prevState => ({ ...prevState, shape, drawingMode: false }));
   }

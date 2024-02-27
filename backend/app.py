@@ -11,7 +11,7 @@ app = Flask(__name__)
 loop = asyncio.get_event_loop()
 plugin_manager = AsyncPluginManager()
 
-app.drone_system = None # store the drone object in the app object
+app.drone_system = System() # store the drone object in the app object
 app.mavsdk_server = None # store the mavsdk binary process running in the background on windows machines
 
 # Decorator to ensure drone is connected

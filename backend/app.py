@@ -146,6 +146,16 @@ async def fly_mission():
         print("starting mission")
         await drone.mission.start_mission()
         return 'Mission started!'
+
+# Route to generate a mission plan from the boundaries provided by frontend.
+@app.route('/generate-mission-plan', methods=['POST'])
+def generate_mission_plan():
+    if request.method == 'POST':
+        boundaries = request.json
+        print(boundaries)
+        # plan = plan_from_boundaries(boundaries)
+        # return plan
+
     
 ## TODO: Add a route to generate a mission plan from the boundaries provided by frontend.
     # will use the plan_from_boundaries function from mission_planner.py

@@ -1,0 +1,37 @@
+html[data-theme="dark"] .regularButton, html[data-theme="black"] .regularButton  {
+    box-shadow: .2px .5px 1.5px .2px rgba(255, 255, 255, 0.603);
+ }
+
+html[data-theme="light"] .regularButton, html[data-theme="white"] .regularButton  {
+    box-shadow: .5px 1px 2px .5px rgba(35, 35, 35, 0.323);
+}
+
+.regularButton{
+  padding:.5em 1em;
+  margin: 0.25em .25em;
+}
+input[type="number"] {
+    width: 9rem;
+    padding: 0.5em 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: inherit;
+  }
+  
+  input[type="number"]:focus {
+    outline: none;
+    border-color: blue;
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); 
+  }
+
+  #settingsPage {
+    width: fit-content;
+    margin: 0 auto;
+    padding: 1em;
+
+  }
+
+  hr {
+    width: 70%;
+    border: 1px solid rgb(224, 224, 224);
+  }

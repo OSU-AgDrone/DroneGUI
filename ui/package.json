@@ -1,5 +1,6 @@
 {
   "description": "A foundation for scalable desktop apps",
+  "proxy": "http://localhost:5000",
   "keywords": [
     "electron",
     "boilerplate",
@@ -99,9 +100,14 @@
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
+    "fs": "^0.0.1-security",
+    "google-map-react": "^2.2.1",
+    "google-maps-draw-shape-lib": "^1.0.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.16.0"
+    "react-i18next": "^14.0.5",
+    "react-router-dom": "^6.16.0",
+    "react-toastify": "^10.0.4"
   },
   "devDependencies": {
     "@electron/notarize": "^2.1.0",

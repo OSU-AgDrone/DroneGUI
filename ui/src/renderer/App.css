@@ -1,0 +1,180 @@
+body {
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+}
+
+button, a{ 
+    cursor: pointer;
+    border: 0;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+}
+
+
+:root {
+    --background-color: #fff;
+    --text-color: #121416d8;
+}
+
+
+/* Light Color Theme */
+html[data-theme="light"] {
+    --background-color: #fffbf6;
+    --text-color: #7D450D;
+}
+
+html[data-theme="light"] button, html[data-theme="light"] a {
+    color: #6c3a07;
+    background: #fffbf6;
+}
+
+html[data-theme="light"] button:hover, html[data-theme="light"]  a:hover, html[data-theme="light"]  button.active:hover{
+    color:#fdfdfd;
+    background:#b7691a;
+}
+
+html[data-theme="light"] a:hover img, html[data-theme="white"] a:hover img, html[data-theme="light"] button:hover img, html[data-theme="white"] button:hover img{
+    filter: invert(100%) hue-rotate(180deg);
+}
+
+html[data-theme="light"] img, html[data-theme="white"] img{
+    filter: invert(25%) hue-rotate(180deg) sepia(100%) saturate(100%) grayscale(0%)
+}
+
+html[data-theme="light"] button:active, html[data-theme="light"] button.active{
+    color:#b7691a;
+    border-bottom: 3.5px #b7691a;
+    border-style:groove;
+}
+
+
+
+/* Dark Color Theme */
+
+html[data-theme="dark"] {
+    --background-color: #0D1A49;
+    --text-color: #eaf8ff;
+}
+
+html[data-theme="dark"] button:hover, html[data-theme="dark"] a:hover, html[data-theme="dark"] button.active:hover{
+    background:#eaf8ff;
+    color:#1a2d6e;
+    border-style: 5px 5px 10px solid #eaf8ff;
+}
+
+html[data-theme="dark"] button, html[data-theme="dark"] a {
+    color: #eaf8ff;
+    background: #0D1A49;
+}
+
+html[data-theme="dark"] a:hover img, html[data-theme="black"] a:hover img, html[data-theme="dark"] button:hover img, html[data-theme="black"] button:hover img{
+    filter: invert(0%) hue-rotate(180deg);
+}
+
+html[data-theme="dark"] img{
+   filter: invert(100%);
+}
+
+html[data-theme="dark"] button:active, html[data-theme="dark"] button.active{
+    color:#eaf8ff;
+    background:#0D1A49;
+    border-bottom: 3.5px #eaf8ff;
+    border-style:groove;
+}
+
+
+
+/* Black Color Theme */
+html[data-theme="black"] {
+    --background-color: #000;
+    --text-color: #fff;
+}
+
+html[data-theme="black"] button, html[data-theme="black"] a {
+    color: #fff;
+    background: #000;
+}
+
+html[data-theme="black"] button:hover, html[data-theme="black"] a:hover, html[data-theme="black"] button.active:hover{
+    color:#000;
+    background:#fff;
+}
+
+html[data-theme="black"] button:active, html[data-theme="black"] button.active{
+    color:#000;
+    background:#ffffff;
+}
+
+html[data-theme="black"] a:hover img, html[data-theme="black"] a:hover img, html[data-theme="black"] button:hover img{
+    filter: invert(0%) hue-rotate(180deg);
+}
+
+html[data-theme="black"] img, html[data-theme="black"] img{
+    filter: invert(100%);
+}
+
+html[data-theme="black"] button:active, html[data-theme="black"] button.active{
+    color:#fff;
+    background:#000;
+    border-bottom: 3.5px #fff;
+    border-style:groove;
+}
+
+
+/* White Color Theme */
+html[data-theme="white"] {
+    --background-color: #fff;
+    --text-color: #000;
+}
+
+html[data-theme="white"] button, html[data-theme="white"] a {
+    background:#fff;
+    color:#000;
+}
+
+html[data-theme="white"] button:hover, html[data-theme="white"] a:hover, html[data-theme="white"] button.active:hover{
+    color: #fff;
+    background: #000;
+}
+
+html[data-theme="white"] button:active, html[data-theme="white"] button.active{
+    color:#000;
+    background:#fff;
+    border-bottom: 3.5px #000;
+    border-style:groove;
+}
+
+html[data-theme="white"] a:hover img, html[data-theme="white"] a:hover img {
+    filter: invert(100%) hue-rotate(180deg);
+}
+
+html[data-theme="white"] img, html[data-theme="white"] img{
+    filter: invert(0%) hue-rotate(180deg) sepia(100%) saturate(100%) grayscale(0%);
+}
+
+
+
+
+
+ 
+body {
+    background: var(--background-color);
+    color: var(--text-color);
+    font-family: sans-serif;
+    margin: 0;
+    transition: background 0.5s;
+}
+#container {
+    line-height: 1.5em;
+    margin: 0 auto;
+    max-width: 900px;
+    padding: 1em;
+    width: 90%;
+}
+
+
+
+

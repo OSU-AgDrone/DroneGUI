@@ -1,13 +1,15 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from mavsdk.mission import Mission, MissionItem, MissionPlan
 from mavsdk.async_plugin_manager import AsyncPluginManager
 import asyncio
 from mavsdk import System
+from flask_cors import CORS
 
 from connection_functions import find_serial_port, connectToDroneTimeout, connectToDroneSim
 from mission_planner import plan_from_boundaries, generate_mission_plan
 
 app = Flask(__name__)
+CORS(app)
 loop = asyncio.get_event_loop()
 plugin_manager = AsyncPluginManager()
 
@@ -151,10 +153,10 @@ async def fly_mission():
 @app.route('/generate-mission-plan', methods=['POST'])
 def generate_mission_plan():
     if request.method == 'POST':
-        boundaries = request.json
-        print(boundaries)
-        # plan = plan_from_boundaries(boundaries)
-        # return plan
+        boundaries = request.json['shape']
+        plan = plan_from_boundaries(boundaries)
+        response = jsonify(plan)
+        return response
 
 # Route to execute a mission plan
 @app.route('/execute-mission-plan', methods=['POST'])

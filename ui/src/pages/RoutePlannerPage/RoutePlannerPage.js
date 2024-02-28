@@ -9,12 +9,13 @@ const RoutePlannerPage = (props) => {
     const [shape, setShape] = useState([])
     
     const makeRequest = () => {
-        fetch('localhost:5000/generate-mission-plan', {
+        fetch('http://localhost:5000/generate-mission-plan', {
             method: 'post',
+            mode: 'cors',
             headers: {'Content-Type':'application/json'},
-            body: {
+            body: JSON.stringify({
                 "shape": shape
-               }
+               })
         })
     }
 

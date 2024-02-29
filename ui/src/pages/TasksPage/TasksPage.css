@@ -1,0 +1,71 @@
+html[data-theme="dark"] .regularButton, html[data-theme="black"] .regularButton  {
+    box-shadow: .2px .5px 1.5px .2px rgba(255, 255, 255, 0.603);
+ }
+
+html[data-theme="light"] .regularButton, html[data-theme="white"] .regularButton  {
+    box-shadow: .5px 1px 2px .5px rgba(35, 35, 35, 0.323);
+}
+
+.regularButton{
+  font-size: inherit;
+  padding:.5em 1em;
+  margin: 0.25em .25em;
+}
+input[type="text"], input[type="date"] {
+    width: 9rem;
+    padding: 0.5em 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: inherit;
+  }
+  
+  input[type="text"]:focus, input[type="date"]:focus {
+    font-size: inherit;
+    outline: none;
+    border-color: blue;
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); 
+  }
+
+  #TasksPage {
+    width: fit-content;
+    margin: 0 auto;
+    padding: 1em;
+  }
+
+  hr {
+    width: 70%;
+    border: 1px solid rgb(224, 224, 224);
+  }
+
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .flex-container > div {
+    margin: .1rem;
+    text-align: center;
+  }
+
+
+/* Style for the select element */
+select {
+    font-size: inherit;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    width: 100%;
+    max-width: 200px; 
+}
+
+option {
+    padding: 10px;
+}
+
+select:after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+}

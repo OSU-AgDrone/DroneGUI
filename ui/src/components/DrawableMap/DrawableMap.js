@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
 import GoogleMapReact from 'google-map-react';
+import { useTranslation } from 'react-i18next';
 
 import MapDrawShapeManager from 'google-maps-draw-shape-lib';
 import './DrawableMap.css';
 
 export default function MapDrawShape(props) {
+  const [t, i18n] = useTranslation();
   const [state, setState] = useState({
     mapLoaded: false,
     drawingMode: false,
@@ -63,9 +65,9 @@ export default function MapDrawShape(props) {
         <div className="controls-container">
           <div className="center">
             <button className="btn-control" onClick={() => setDrawingMode(!state.drawingMode)}>
-              {!state.drawingMode ? 'Start Draw' : 'Cancel Draw'}
+            {!state.drawingMode ? t("startDraw") : t("cancelDraw")}
             </button>
-            <button className="btn-control" disabled={(!(state.shape?.length > 0) || state.drawingMode)} onClick={resetDrawnShape}>Clear Shape</button>
+            <button className="btn-control" disabled={(!(state.shape?.length > 0) || state.drawingMode)} onClick={resetDrawnShape}>{t("clearDraw")}</button>
           </div>
         </div>
       }

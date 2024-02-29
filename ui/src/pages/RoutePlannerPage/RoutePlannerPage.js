@@ -1,7 +1,7 @@
 import './RoutePlannerPage.css';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import MapDrawShape from '../../components/DrawableMap';
+import MapDrawShape from '../../components/DrawableMap/DrawableMap';
 import { useState } from 'react';
 
 const RoutePlannerPage = (props) => {
@@ -26,7 +26,7 @@ const RoutePlannerPage = (props) => {
                     <MapDrawShape callback={setShape}/>
                 </div>
                 <div className='button-container'>
-                    <button className='routePlanningButton'>{t("drawBorder")}</button>
+                    <button className='routePlanningButton'>{t("editSaved")}</button>
                     <button className='routePlanningButton'>{t("resetMap")}</button>
                     <button onClick={makeRequest} className='routePlanningButton'>{t("saveMap")}</button>
                 </div>

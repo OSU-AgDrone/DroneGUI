@@ -1,0 +1,44 @@
+.map_name {
+  font-weight: bold;
+  margin-top:.5rem;
+  margin-bottom:0;
+  flex-grow: 100;
+  flex-wrap: wrap;
+  width: 1em;
+  font-size: x-large;
+}
+
+.todo {
+    background-color: var(--background-color);
+}
+
+.date {
+    margin-bottom: 0.5em;
+    font-size: medium;
+    right: 1em;
+}
+
+.toDoCard {
+    background-color: var(--background-color);
+    width:max-content;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    margin: 1em;
+    padding: .2rem;
+    width: 10rem;
+    font-size: inherit;
+}
+
+.remove {
+    flex-grow: 1;
+    height:fit-content;
+}
+
+.flex-container {
+    display: flex;
+    align-items: stretch;
+}
+
+.flex-container > div {
+    text-align: center;
+  }

@@ -4,9 +4,9 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './SettingsPage.css';
 import { useTranslation } from 'react-i18next';
-import LanguageSelector from '../../components/LanguageSelector';
-import ThemeSelector from '../../components/ThemeSelector';
-import FontSizeSelector from '../../components/FontSizeSelector';
+import LanguageSelector from '../../components/SettingsStuff/LanguageSelector';
+import ThemeSelector from '../../components/SettingsStuff/ThemeSelector';
+import FontSizeSelector from '../../components/SettingsStuff/FontSizeSelector';
 
 const SettingsPage = () => {
   const [t, i18n] = useTranslation();

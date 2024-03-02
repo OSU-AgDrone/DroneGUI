@@ -21,13 +21,12 @@ const RoutePlannerPage = (props) => {
     const { t } = useTranslation();
     return (
         <>
+         <h1 className='title'>{t("routePlanner")} <img id="titleImg" src="https://img.icons8.com/pastel-glyph/64/route--v1.png"></img></h1>
             <div className='pageContainer'>
                 <div className='mapContainer' >
                     <MapDrawShape callback={setShape}/>
                 </div>
                 <div className='button-container'>
-                    <button className='routePlanningButton'>{t("editSaved")}</button>
-                    <button className='routePlanningButton'>{t("resetMap")}</button>
                     <button onClick={makeRequest} className='routePlanningButton'>{t("saveMap")}</button>
                 </div>
             </div>

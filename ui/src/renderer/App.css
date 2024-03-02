@@ -74,7 +74,7 @@ html[data-theme="dark"] a:hover img, html[data-theme="black"] a:hover img, html[
     filter: invert(0%) hue-rotate(180deg);
 }
 
-html[data-theme="dark"] img :not(#map-container), html[data-theme="black"] img :not(#map-container){
+html[data-theme="dark"] img :not(#map-container), html[data-theme="black"] img :not(#map-container), .titleImg{
    filter: invert(100%);
 }
 
@@ -88,7 +88,9 @@ html[data-theme="dark"] button:active, html[data-theme="dark"] button.active{
     border-bottom: 3.5px #eaf8ff;
     border-style:groove;
 }
-
+html[data-theme="dark"] #titleImg, html[data-theme="black"] #titleImg {
+    filter: invert(100%) hue-rotate(180deg);
+}
 
 
 /* Black Color Theme */

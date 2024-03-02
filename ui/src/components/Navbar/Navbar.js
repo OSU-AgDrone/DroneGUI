@@ -7,16 +7,18 @@ import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
     const { t } = useTranslation();
-    const [list, setOpen] = React.useState(false);
     const ref = useRef(null);
-
-    const handleOpen = (e) => {
-        console.log("== ref.current:", ref.current);
-        if (!ref.current) {
-            setOpen(false);
+    
+    function handleUnsavedChanges(e) {
+        if (document.documentElement.getAttribute('unsavedChanges') !== null){
+            const confirmation = window.confirm(t("unsavedChanges") + " " + t("confirm_form"));
+            if (!confirmation){
+                e.preventDefault();
+            }else{
+                document.documentElement.removeAttribute('unsavedChanges');
+            }
         }
-        setOpen(!list);
-    };
+    }
 
     return (
         <div className='navbar'>
@@ -41,17 +43,15 @@ const Navbar = () => {
                         />
                     </a>
                     <div className="dropdown-content">
-                        <Link to="/" id='home' onClick={handleOpen}>{t("home")}</Link>
-                        <Link to="/settings" id='setting' onClick={handleOpen}>{t("settings")}</Link>
-                        <Link to='/routes' id='routes' onClick={handleOpen}>{t("routePlanner")}</Link>
-                        <Link to='/findDrone' id='findDrone' onClick={handleOpen}>{t("findDrone")}</Link>
-                        <Link to='/savedMaps' id='savedMaps' onClick={handleOpen}>{t("savedMaps")}</Link>
-                        <Link to='/tasks' id='tasks' onClick={handleOpen}>{t("Task List")}</Link>
+                        <Link onClick={handleUnsavedChanges} to="/" id='home' >{t("home")}</Link>
+                        <Link onClick={handleUnsavedChanges} to='/routes' id='routes' >{t("routePlanner")}</Link>
+                        <Link onClick={handleUnsavedChanges} to='/savedMaps' id='savedMaps'>{t("savedMaps")}</Link>
+                        <Link onClick={handleUnsavedChanges} to='/tasks' id='tasks' >{t("Task List")}</Link>
+                        <Link onClick={handleUnsavedChanges} to='/findDrone' id='findDrone' >{t("findDrone")}</Link>
+                        <Link onClick={handleUnsavedChanges} to='/settings' id='settings' >{t("settings")}</Link>
                     </div>
                 </div>
             </div>
-            <br />
-            <br />
             <br />
         </div>
     );

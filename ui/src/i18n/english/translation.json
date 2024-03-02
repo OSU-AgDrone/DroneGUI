@@ -45,5 +45,15 @@
     "next": "Next",
     "previous": "Previous",
     "select_date": "Select Date",
-    "make_task": "Create Task"
+    "make_task": "Create Task",
+    "date_format":"month/day/year",
+    "rating": "Task Importance",
+    "rating_desc": "Rate from 1-5, 5 being most important",
+    "Importance": "Importance",
+    "droneCommands": "Drone Commands",
+    "takeOff": "Take Off",
+    "land": "Land",
+    "loadMap": "Load Map",
+    "unsavedChanges": "Unsaved changes will be lost. Pressing 'OK' will discard changes, and 'Cancel' will keep you on this page.",
+    "confirm_form": ""
 }

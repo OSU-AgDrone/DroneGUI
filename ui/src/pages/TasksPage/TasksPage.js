@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import "./TasksPage.css";
+import "../../renderer/App.css";
 import ToDoCard from '../../components/ToDoCard/ToDoCard';
 import ToDoMaker from '../../components/ToDoMaker/ToDoMaker';
 import Modal from '../../components/Modal';
@@ -14,47 +15,61 @@ function TodoList() {
     const [dateQuickFinds, setDateQuickFinds] = useState([]);
     const [find, setFind] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [activeField, setActiveField] = useState('');
 
     useEffect(() => {
         const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
         setTodos(savedTodos);
-    }, []);
 
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos));
-    }, [todos]);
-
-    useEffect(() => {
         const savedMapQuickFinds = JSON.parse(localStorage.getItem('mapQuickFinds')) || [];
         setMapQuickFinds(savedMapQuickFinds);
-    }, []);
 
-    useEffect(() => {
-        localStorage.setItem('mapQuickFinds', JSON.stringify(mapQuickFinds));
-    }, [mapQuickFinds]);
-
-    useEffect(() => {
         const savedDateQuickFinds = JSON.parse(localStorage.getItem('dateQuickFinds')) || [];
         setDateQuickFinds(savedDateQuickFinds);
     }, []);
 
     useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+        localStorage.setItem('mapQuickFinds', JSON.stringify(mapQuickFinds));
         localStorage.setItem('dateQuickFinds', JSON.stringify(dateQuickFinds));
-    }, [dateQuickFinds]);
+    }, [todos, mapQuickFinds, dateQuickFinds]);
 
     const openModal = () => {
-        if(isModalOpen== false){            
+        if (isModalOpen) {
+            if (document.documentElement.getAttribute('unsavedChanges') !== null) {
+                const confirmation = window.confirm(t("unsavedChanges") + " " + t("confirm_form"));
+                if (!confirmation) {
+                    return;
+                } else {
+                    document.documentElement.removeAttribute('unsavedChanges');
+                }
+            }
+            setIsModalOpen(false); 
+        } else {
             setIsModalOpen(true);
-        }else {
-            setIsModalOpen(false);
-    }
-      };
+        }
+    };
+
+    const handleClearAll = () => {
+        if (!window.confirm(t("clearAllTasksCheck"))) return;
+        setTodos([]);
+        setMapQuickFinds([]);
+        setDateQuickFinds([]);
+    };
+
+    const handleAllremove = (type) => {
+        const conditions = find.split(' && ');
+        const simplifiedConditions = conditions.filter(condition => !condition.startsWith(`${type} =`));
+        const simplifiedFind = simplifiedConditions.join(' && ');
+        setFind(simplifiedFind);
+    };
+    
     
 
-    const addTodo = (map, task, date) => {
+    const addTodo = (map, task, date, rate) => {
         const currentDate = new Date();
         const uniqueId = currentDate.getTime().toString();
-        const newTodo = { map, task, date, id: uniqueId };
+        const newTodo = { map, task, date, rate, id: uniqueId };
         setTodos([...todos, newTodo]);
 
         const existingMap = mapQuickFinds.find(item => item.map === map);
@@ -85,13 +100,6 @@ function TodoList() {
         }
     };
 
-    const handleClearAll = () => {
-        if (!window.confirm(t("clearAllTasksCheck"))) return;
-        setTodos([]);
-        setMapQuickFinds([]);
-        setDateQuickFinds([]);
-    };
-
     const compareDates = (a, b) => {
         return new Date(a.date) - new Date(b.date);
     };
@@ -103,29 +111,76 @@ function TodoList() {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const handleAll = () => {
+        document.getElementById('dateSelect').value = '';
+        document.getElementById('rateSelect').value = '';
+        setActiveField('');
         setFind('');
     };
 
     const handleMapFind = (map) => {
-        setFind(`map = ${map}`);
+        setActiveField(map);
+        const endingDelimiter = '_'; 
+        const formattedMap = map + endingDelimiter; 
+        if (find !== '') {
+            if (find.includes('map')) {
+                let newFind = find.replace(/(map\s*=\s*)([\w\s]+)/, `$1${formattedMap}`);
+                newFind = newFind.replace(endingDelimiter, '');
+                setFind(newFind);
+            } else {
+                setFind(`${find} && map = ${formattedMap}`);
+            }
+        } else {
+            setFind(`map = ${map}`);
+        }
     };
+    
 
     const handleDateFind = (date) => {
-        setFind(`date = ${date}`);
+        if(date === ''){
+            handleAllremove('date');
+        }else if (find !== '') {
+            if (find.includes('date')) {
+                const newFind = find.replace(/(date\s*=\s*)([\d-]+)/, `$1${date}`);
+                setFind(newFind);
+            } else {
+                setFind(`${find} && date = ${date}`);
+            }
+        } else {
+            setFind(`date = ${date}`);
+        }
+    };
+
+    const handleRateFind = (rate) => {
+        if(rate === ''){
+            handleAllremove('rate');
+        }else if (find !== '') {
+            if (find.includes('rate')) {
+                const newFind = find.replace(/(rate\s*=\s*)(\w+)/, `$1${rate}`);
+                setFind(newFind);
+            } else {
+                setFind(`${find} && rate = ${rate}`);
+            }
+        } else {
+            setFind(`rate = ${rate}`);
+        }
     };
 
     function filterTodos(todo, filter) {
         if (!filter) return true;
-        const [key, value] = filter.split('=').map(part => part.trim());
-        return todo[key] === value;
+        const filters = filter.split('&&').map(f => f.trim());
+        return filters.every(f => {
+            const [key, value] = f.split('=').map(part => part.trim());
+            return todo[key] === value;
+        });
     }
 
+    
     return (
         <div id="TasksPage" style={{"minWidth":"80%"}}>
-            <h1>{t("Task List")}</h1>
+             <h1 autoFocus className='title'>{t("Task List")} <img id="titleImg" src="https://img.icons8.com/45/clipboard.png" ></img></h1>
             <button className="regularButton" onClick={openModal}>{t("make_task")}</button>
                 <Modal isOpen={isModalOpen}>
-                    <ToDoMaker addTodo={addTodo} openModal={() => openModal}/>
+                    <ToDoMaker maps={mapQuickFinds} addTodo={addTodo} openModal={() => openModal}/>
                 </Modal>
                 <hr/>
             <div >
@@ -133,28 +188,41 @@ function TodoList() {
                 <h3 style={{left:"auto", "position": "absolute"}}>{t("quickFind")}</h3>
                 <div >
                     <br/>
+                    <br/>
                     <h4 style={{left:"auto", "position": "absolute"}}>{t("Fields")}</h4>
                     <br /><br />
                     <div style={{marginLeft:"1rem"}}>
-                        {mapQuickFinds.map((item, index) => (
-                            <button className='regularButton' onClick={() => handleMapFind(item.map)} key={item.id}>{item.map}</button>
+                        {mapQuickFinds.map((item) => (
+                            <button className={`${activeField === `${item.map}` ? 'active' : ''} regularButton`} onClick={() => handleMapFind(item.map)} key={item.id}>{item.map}</button>
                         ))}
                     </div>
                 </div>
                 <br />
-                <div>
                     <div>
                         <h4 style={{left:"auto", "position": "absolute"}}>{t("Dates")}</h4>
                         <br /><br />
                         <br />
-                        <select style={{marginLeft:"1rem"}} onChange={(e) => handleDateFind(e.target.value)}>
+                        <select id="dateSelect" style={{marginLeft:"1rem"}} onChange={(e) => handleDateFind(e.target.value)}>
                             <option value="">{t("select_date")}</option>
-                            {dateQuickFinds.map((item, index) => (
+                            {dateQuickFinds.map((item) => (
                                 <option key={item.id} value={item.date}>{item.date}</option>
                             ))}
                         </select>
                     </div>
-                </div>
+                    <div>
+
+                        <h4 style={{left:"auto", "position": "absolute"}}>{t("Importance")}</h4>
+                        <br /><br />
+                        <br />
+                        <select id="rateSelect" style={{marginLeft:"1rem", width:"3rem"}} onChange={(e) => handleRateFind(e.target.value)}>
+                            <option value="">-</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
             </div>
             <hr />
             <div className="flex-container">
@@ -163,7 +231,7 @@ function TodoList() {
                     .filter(todo => filterTodos(todo, find))
                     .map((todo) => (
                         <div key={todo.id}>
-                            <ToDoCard map={todo.map} date={todo.date} todo={todo.task} removeTodo={() => removeTodo(todo.id, todo.date, todo.map)} />
+                            <ToDoCard map={todo.map} date={todo.date} todo={todo.task} rate={todo.rate} removeTodo={() => removeTodo(todo.id, todo.date, todo.map)} />
                         </div>
                     ))}
             </div>

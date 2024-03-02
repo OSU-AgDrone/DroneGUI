@@ -19,6 +19,8 @@ const MainPage = (props) => {
 
   return (
     <div>
+      <br/>
+      <br/>
       <div className="capacityIcons"></div>
       <div className="buttonContainer">
         <ButtonWithIcon url="/routes" buttonIcon="https://img.icons8.com/pastel-glyph/64/route--v1.png" buttonText={t('routePlanner')} />

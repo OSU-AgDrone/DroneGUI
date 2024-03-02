@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import GoogleMapReact from 'google-map-react';
 import { useTranslation } from 'react-i18next';
-
+import "../../renderer/App.css"
 import MapDrawShapeManager from 'google-maps-draw-shape-lib';
 import './DrawableMap.css';
 
@@ -50,8 +50,8 @@ export default function MapDrawShape(props) {
 
   return (
     <>
-      <div className="map-container">
-        <GoogleMapReact
+      <div  id="map-container">
+        <GoogleMapReact 
           bootstrapURLKeys={props.mapBootstrap}
           options={props.mapOptions}
           defaultCenter={props.defaultCenter}
@@ -59,7 +59,7 @@ export default function MapDrawShape(props) {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => onGoogleApiLoaded(map, maps)}
         >
-        </GoogleMapReact>
+        </GoogleMapReact> 
       </div>
       {state.mapLoaded &&
         <div className="controls-container">

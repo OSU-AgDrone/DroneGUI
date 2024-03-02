@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import './Navbar.css';
+import "../../renderer/App.css";
 import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
@@ -15,13 +16,6 @@ const Navbar = () => {
             setOpen(false);
         }
         setOpen(!list);
-    };
-
-    const handleThemeChange = (newTheme) => {
-        setTheme(newTheme);
-        localStorage.setItem('theme', newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme);
-        setActiveTheme(newTheme);
     };
 
     return (
@@ -38,7 +32,7 @@ const Navbar = () => {
                         }}
                         className='dropdown-menu'
                     >
-                        <img
+                        <img 
                             style={{ display: "inline-block" }}
                             src="https://img.icons8.com/ios-filled/50/menu"
                             width="25"

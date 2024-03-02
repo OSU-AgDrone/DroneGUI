@@ -27,7 +27,7 @@
     "deactivateRinger": "Deactivate Alarm",
     "clearShape": "Clear Shape",
     "startDraw": "Start Draw",
-    "cancelDraw": "Cancel Draw",
+    "clearDraw":"clear Draw",
     "savedMaps": "Saved Maps",
     "editSaved": "Edit Saved Maps",
     "clearAllTasksCheck": "Are you sure you want to clear all tasks?",

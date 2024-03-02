@@ -13,7 +13,6 @@
 
 .navbar .dropdown:hover .dropdown-content {
   display: block;
-  background-color: var(--background-color);
   z-index: 99999; 
 }
 
@@ -23,7 +22,6 @@
   left: 0; 
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,.9);
   z-index: 999; 
-  background-color: var(--background-color);
 }
 
 .navbar .dropdown-content a {

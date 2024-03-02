@@ -27,7 +27,7 @@
     "deactivateRinger": "ปิดใช้งานการปลุก",
     "clearShape": "ลบรูป",
     "startDraw": "เริ่มวาด",
-    "cancelDraw": "ยกเลิกการวาด",
+    "clearDraw": "ยกเลิกการวาด",
     "savedMaps": "แผนที่ที่บันทึกไว้",
     "editSaved": "แก้ไขแผนที่ที่บันทึก",
     "clearAllTasksCheck": "คุณแน่ใจหรือว่าต้องการลบงานทั้งหมด?",

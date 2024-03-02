@@ -1,8 +1,8 @@
 import './RoutePlannerPage.css';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import MapDrawShape from '../../components/DrawableMap/DrawableMap';
 import { useState } from 'react';
+import "../../renderer/App.css"
 
 const RoutePlannerPage = (props) => {
 
@@ -22,7 +22,7 @@ const RoutePlannerPage = (props) => {
     return (
         <>
             <div className='pageContainer'>
-                <div className='mapContainer'>
+                <div className='mapContainer' >
                     <MapDrawShape callback={setShape}/>
                 </div>
                 <div className='button-container'>

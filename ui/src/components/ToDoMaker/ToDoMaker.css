@@ -23,23 +23,3 @@ input[list="fields"] {
     margin: 0.5em 0.5em;
 }
 
-
-#description {
-    width: 90%;
-}
-
-#modal-container{
-    z-index: 30000;
-}
-
-#modal-container:hover {
-    background-color: blue;
-}
-
-#modal-container:active {
-    background-color: red;
-}
-
-#modal-container:focus {
-    background-color: green;
-}

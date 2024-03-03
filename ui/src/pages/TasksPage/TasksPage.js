@@ -6,7 +6,7 @@ import ToDoCard from '../../components/ToDoCard/ToDoCard';
 import ToDoMaker from '../../components/ToDoMaker/ToDoMaker';
 import Modal from '../../components/Modal';
 
-function TodoList() {
+const TodoList = ({ setPopUp}) => {
     const { t } = useTranslation();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
@@ -16,6 +16,7 @@ function TodoList() {
     const [find, setFind] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeField, setActiveField] = useState('');
+
 
     useEffect(() => {
         const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
@@ -34,21 +35,6 @@ function TodoList() {
         localStorage.setItem('dateQuickFinds', JSON.stringify(dateQuickFinds));
     }, [todos, mapQuickFinds, dateQuickFinds]);
 
-    const openModal = () => {
-        if (isModalOpen) {
-            if (document.documentElement.getAttribute('unsavedChanges') !== null) {
-                const confirmation = window.confirm(t("unsavedChanges") + " " + t("confirm_form"));
-                if (!confirmation) {
-                    return;
-                } else {
-                    document.documentElement.removeAttribute('unsavedChanges');
-                }
-            }
-            setIsModalOpen(false); 
-        } else {
-            setIsModalOpen(true);
-        }
-    };
 
     const handleClearAll = () => {
         if (!window.confirm(t("clearAllTasksCheck"))) return;
@@ -174,13 +160,26 @@ function TodoList() {
         });
     }
 
+    const openModal = () => {
+        if (!isModalOpen) {
+            setIsModalOpen(true);
+        } else {
+            if (document.documentElement.getAttribute('unsavedChanges') !== null) {
+                document.documentElement.setAttribute('modalChange', 'true')
+                setPopUp(true);
+            } else {
+                setIsModalOpen(false);
+            }
+        }
+    }
+
     
     return (
         <div id="TasksPage" style={{"minWidth":"80%"}}>
-             <h1 autoFocus className='title'>{t("Task List")} <img id="titleImg" src="https://img.icons8.com/45/clipboard.png" ></img></h1>
-            <button className="regularButton" onClick={openModal}>{t("make_task")}</button>
+             <h1 className='title'>{t("Task List")} <img id="titleImg" src="https://img.icons8.com/45/clipboard.png" ></img></h1>
+             <button id='modal-root' className='regularButton' onClick={openModal}>{t("make_task")}</button>
                 <Modal isOpen={isModalOpen}>
-                    <ToDoMaker maps={mapQuickFinds} addTodo={addTodo} openModal={() => openModal}/>
+                    <ToDoMaker maps={mapQuickFinds} addTodo={addTodo}/>
                 </Modal>
                 <hr/>
             <div >
@@ -191,7 +190,7 @@ function TodoList() {
                     <br/>
                     <h4 style={{left:"auto", "position": "absolute"}}>{t("Fields")}</h4>
                     <br /><br />
-                    <div style={{marginLeft:"1rem"}}>
+                     <div style={{marginLeft:"1rem"}}>
                         {mapQuickFinds.map((item) => (
                             <button className={`${activeField === `${item.map}` ? 'active' : ''} regularButton`} onClick={() => handleMapFind(item.map)} key={item.id}>{item.map}</button>
                         ))}

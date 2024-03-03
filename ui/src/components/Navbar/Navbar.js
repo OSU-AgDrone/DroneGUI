@@ -5,18 +5,15 @@ import './Navbar.css';
 import "../../renderer/App.css";
 import { useTranslation } from 'react-i18next';
 
-const Navbar = () => {
+const Navbar = ({setPopUp}) =>  {
     const { t } = useTranslation();
-    const ref = useRef(null);
+    
     
     function handleUnsavedChanges(e) {
-        if (document.documentElement.getAttribute('unsavedChanges') !== null){
-            const confirmation = window.confirm(t("unsavedChanges") + " " + t("confirm_form"));
-            if (!confirmation){
-                e.preventDefault();
-            }else{
-                document.documentElement.removeAttribute('unsavedChanges');
-            }
+        if (document.documentElement.getAttribute('unsavedChanges') !== null) {
+            setPopUp(true);
+            document.documentElement.setAttribute('navChange', e.target.id)
+            e.preventDefault();
         }
     }
 

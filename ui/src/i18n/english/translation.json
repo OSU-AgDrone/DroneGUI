@@ -55,5 +55,8 @@
     "land": "Land",
     "loadMap": "Load Map",
     "unsavedChanges": "Unsaved changes will be lost. Pressing 'OK' will discard changes, and 'Cancel' will keep you on this page.",
-    "confirm_form": ""
+    "confirm_form": "",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "unsavedChangeTitle": "Warning! Unsaved Changes!"
 }

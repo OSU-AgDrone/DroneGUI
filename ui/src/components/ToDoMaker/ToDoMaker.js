@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './ToDoMaker.css';
-import { useRef } from 'react';
+
+
+
 
 const ToDoMaker = ({ addTodo, maps}) => {
   const [inputValue, setInputValue] = useState('');
@@ -9,13 +11,6 @@ const ToDoMaker = ({ addTodo, maps}) => {
   const [inputMap, setInputMap] = useState('');
   const [inputRating, setInputRating] = useState(0);
   const { t } = useTranslation();
-  const inputMapRef = useRef(null);
-
-  useEffect(() => {
-    inputMapRef.current.focus();
-    inputMapRef.current.select();
-    inputMapRef.current.setAttribute('autocomplete', 'off');
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,30 +30,38 @@ const ToDoMaker = ({ addTodo, maps}) => {
         }
     };
 
+    const handleReset = () => {
+        setInputMap('');
+        setInputValue('');
+        setInputDate('');
+        setInputRating(0);
+        document.documentElement.removeAttribute('unsavedChanges');
+      };
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onReset={handleReset}>
       <input
-          id="modal-container"
-          ref={inputMapRef}
-          tabIndex={1}
-          list="fields"
-          placeholder={t('enter_map')}
-          onChange={(e) => {
+        type="text"
+        tabIndex={1}
+        list="fields"
+        placeholder={t('enter_map')}
+        onChange={(e) => {
             setInputMap(e.target.value);
             handleInputChange(e.target.value);
-          }}
-          value={inputMap}
-          required
-          autoFocus
+        }}
+        value={inputMap}
+        required
+        
         />
         <datalist id="fields">
           {maps.map((item, index) => (
             <option key={item.id}>{item.map}</option>
           ))}
         </datalist>
+
         <br />
-        <input
+         <input
           id="description"
           type="text"
           value={inputValue}
@@ -70,6 +73,7 @@ const ToDoMaker = ({ addTodo, maps}) => {
           required
         />
         <br />
+        
         <br />
         <label>{t('date_to_complete')} </label>
         <div style={{ marginBottom: '1.5rem' }}>
@@ -115,9 +119,12 @@ const ToDoMaker = ({ addTodo, maps}) => {
             {t('rating_desc')}
           </label>
         </div>
-        <br />
-        <button className="regularButton" type="submit">
-          {t('save')}
+        <br /> 
+        <button type="reset" className="regularButton">
+            {t('reset')}
+        </button>
+        <button type="submit" className="regularButton">
+            {t('save')}
         </button>
       </form>
     </>

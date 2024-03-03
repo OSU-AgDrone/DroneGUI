@@ -11,7 +11,7 @@ const ToDoCard = (props) => {
             <button className='regularButton remove' onClick={removeTodo}>x</button>
             </div>
             {Array.from({ length: rate }).map((_, i) => (
-                <img key={i} src="https://img.icons8.com/ios-filled/15/000000/star--v1.png" alt="star" />
+                <img style={{height:"calc(1em)"}} key={i} src="https://img.icons8.com/ios-filled/000000/star--v1.png" alt="star" />
             ))}
             <p className='date'>{date}</p>
             <p className='todo'>{todo}</p>

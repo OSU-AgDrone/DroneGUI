@@ -80,3 +80,7 @@
     align-items: center !important;
     display: inline-flex;
   }
+
+  html[data-theme="dark"] #map-container, html[data-theme="black"] #map-container {
+    filter: invert(100%);
+  }

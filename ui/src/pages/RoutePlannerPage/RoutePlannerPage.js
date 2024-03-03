@@ -4,7 +4,7 @@ import MapDrawShape from '../../components/DrawableMap/DrawableMap';
 import { useState } from 'react';
 import "../../renderer/App.css"
 
-const RoutePlannerPage = (props) => {
+const RoutePlannerPage = () => {
 
     const [shape, setShape] = useState([])
     
@@ -27,7 +27,7 @@ const RoutePlannerPage = (props) => {
                     <MapDrawShape callback={setShape}/>
                 </div>
                 <div className='button-container'>
-                    <button onClick={makeRequest} className='routePlanningButton'>{t("saveMap")}</button>
+                    <button onClick={makeRequest} className='regularButton button'>{t("saveMap")}</button>
                 </div>
             </div>
         </>

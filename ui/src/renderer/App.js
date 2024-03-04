@@ -15,7 +15,7 @@ import AlertDialog from '../components/AlertDialog';
 
 i18next.init({
   interpolation: { escapeValue: false },
-  lng: localStorage.getItem("language"),
+  lng: localStorage.getItem("language") ? localStorage.getItem("language") : 'en',
   resources: {
     en: {
       translation: require('../i18n/english/translation.json'),

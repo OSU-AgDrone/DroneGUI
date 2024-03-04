@@ -7,28 +7,15 @@ html[data-theme="light"] .regularButton, html[data-theme="white"] .regularButton
 }
 
 .regularButton{
+  font-size: inherit;
   padding:.5em 1em;
   margin: 0.25em .25em;
 }
-input[type="number"] {
-    width: 9rem;
-    padding: 0.5em 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: inherit;
-  }
-  
-  input[type="number"]:focus {
-    outline: none;
-    border-color: blue;
-    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); 
-  }
 
-  #settingsPage {
+  #TasksPage {
     width: fit-content;
     margin: 0 auto;
     padding: 1em;
-
   }
 
   hr {
@@ -36,4 +23,34 @@ input[type="number"] {
     border: 1px solid rgb(224, 224, 224);
   }
 
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .flex-container > div {
+    margin: .1rem;
+    text-align: center;
+  }
 
+
+
+select {
+    font-size: inherit;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    width: fit-content;
+}
+
+option {
+    padding: 10px;
+}
+
+select:after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+}

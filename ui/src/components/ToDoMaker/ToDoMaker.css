@@ -7,33 +7,19 @@ html[data-theme="light"] .regularButton, html[data-theme="white"] .regularButton
 }
 
 .regularButton{
+  font-size: inherit;
   padding:.5em 1em;
   margin: 0.25em .25em;
 }
-input[type="number"] {
-    width: 9rem;
+
+input[type="text"],
+input[type="date"],
+input[list="fields"] {
+    width: fit-content;
     padding: 0.5em 1em;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: inherit;
-  }
-  
-  input[type="number"]:focus {
-    outline: none;
-    border-color: blue;
-    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); 
-  }
-
-  #settingsPage {
-    width: fit-content;
-    margin: 0 auto;
-    padding: 1em;
-
-  }
-
-  hr {
-    width: 70%;
-    border: 1px solid rgb(224, 224, 224);
-  }
-
+    margin: 0.5em 0.5em;
+}
 

@@ -40,8 +40,8 @@ html[data-theme="light"] a:hover img, html[data-theme="white"] a:hover img, html
     filter: invert(100%) hue-rotate(180deg);
 }
 
-html[data-theme="light"] img, html[data-theme="white"] img{
-    filter: invert(25%) hue-rotate(180deg) sepia(100%) saturate(100%) grayscale(0%)
+html[data-theme="light"]img :not(#map-container), html[data-theme="white"] img :not(#map-container){
+    filter: invert(25%) hue-rotate(180deg) sepia(100%) saturate(100%) grayscale(0%);
 }
 
 html[data-theme="light"] button:active, html[data-theme="light"] button.active{
@@ -74,8 +74,13 @@ html[data-theme="dark"] a:hover img, html[data-theme="black"] a:hover img, html[
     filter: invert(0%) hue-rotate(180deg);
 }
 
-html[data-theme="dark"] img{
-   filter: invert(100%);
+html[data-theme="dark"] img :not(#map-container), html[data-theme="black"] img :not(#map-container), .titleImg{
+   filter: invert(0%);
+}
+
+
+html[data-theme="dark"]a img, html[data-theme="black"] a img{
+    filter:invert(100%);
 }
 
 html[data-theme="dark"] button:active, html[data-theme="dark"] button.active{
@@ -84,7 +89,9 @@ html[data-theme="dark"] button:active, html[data-theme="dark"] button.active{
     border-bottom: 3.5px #eaf8ff;
     border-style:groove;
 }
-
+html[data-theme="dark"] #titleImg, html[data-theme="black"] #titleImg {
+    filter: invert(100%) hue-rotate(180deg);
+}
 
 
 /* Black Color Theme */
@@ -110,10 +117,6 @@ html[data-theme="black"] button:active, html[data-theme="black"] button.active{
 
 html[data-theme="black"] a:hover img, html[data-theme="black"] a:hover img, html[data-theme="black"] button:hover img{
     filter: invert(0%) hue-rotate(180deg);
-}
-
-html[data-theme="black"] img, html[data-theme="black"] img{
-    filter: invert(100%);
 }
 
 html[data-theme="black"] button:active, html[data-theme="black"] button.active{
@@ -151,9 +154,6 @@ html[data-theme="white"] a:hover img, html[data-theme="white"] a:hover img {
     filter: invert(100%) hue-rotate(180deg);
 }
 
-html[data-theme="white"] img, html[data-theme="white"] img{
-    filter: invert(0%) hue-rotate(180deg) sepia(100%) saturate(100%) grayscale(0%);
-}
 
 
 

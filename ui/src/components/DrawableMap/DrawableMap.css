@@ -7,10 +7,11 @@
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   }
   
-  .map-container {
+  #map-container {
     position: absolute;
     height: 100vh;
     width: 100%;
+
   }
   
   .controls-container {
@@ -48,20 +49,7 @@
     -webkit-user-select: none;
     touch-action: manipulation;
   }
-  
-  .btn-control:hover {
-    background-color: rgb(249,250,251);
-  }
-  
-  .btn-control:focus {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-  }
-  
-  .btn-control:focus-visible {
-    box-shadow: none;
-  }
-  
+
   .btn-control:disabled {
     border-color: #DDDDDD;
     color: #DDDDDD;
@@ -91,4 +79,8 @@
     cursor: pointer;
     align-items: center !important;
     display: inline-flex;
+  }
+
+  html[data-theme="dark"] #map-container, html[data-theme="black"] #map-container {
+    filter: invert(100%);
   }

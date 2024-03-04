@@ -9,14 +9,11 @@ const FindDronePage = (props) => {
 
     return (
         <>
-            <h1 className='title'>{t("findDrone")}</h1>
+            <h1 className='title'>{t("findDrone")} <img id="titleImg" src="https://img.icons8.com/ios-filled/45/map-marker--v1.png"></img></h1>
             <div className='pageContainer'>
                 <div className='mapContainer'></div>
                 <div className='button-container'>
                     <Ringer />
-                    <button className='button findDroneButton'>
-                        {t("saveMap")}
-                    </button>
                     <Link id="backButton" to="/">
                         <button className='button findDroneButton' style={{ "marginTop": "8rem" }}>
                             {t("back")}

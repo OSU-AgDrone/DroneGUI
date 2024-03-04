@@ -1,4 +1,4 @@
-import ButtonWithIcon from '../../components/MainPageButton';
+import ButtonWithIcon from '../../components/MainPageButton/MainPageButton';
 import './MainPage.css';
 import '../../renderer/App.css';
 import { useState } from 'react';
@@ -19,11 +19,13 @@ const MainPage = (props) => {
 
   return (
     <div>
+      <br/>
+      <br/>
       <div className="capacityIcons"></div>
       <div className="buttonContainer">
         <ButtonWithIcon url="/routes" buttonIcon="https://img.icons8.com/pastel-glyph/64/route--v1.png" buttonText={t('routePlanner')} />
-        <ButtonWithIcon buttonIcon="https://img.icons8.com/ios-filled/50/camera" alt="circled-play" buttonText={t('cameraFeed')} />
-        <ButtonWithIcon buttonIcon="https://img.icons8.com/ios-filled/100/calendar--v1.png" buttonText={t('calendar')}  />
+        <ButtonWithIcon url="/savedMaps" buttonIcon="https://img.icons8.com/64/map.png" buttonText={t('savedMaps')} />
+        <ButtonWithIcon url="/tasks" buttonIcon="https://img.icons8.com/100/clipboard.png" buttonText={t("Task List")}  />
         <ButtonWithIcon url="/findDrone" buttonIcon="https://img.icons8.com/ios-filled/100/map-marker--v1.png" alt="map-marker--v1" buttonText={t('findDrone')}  />
         <ButtonWithIcon url="/settings" buttonIcon="https://img.icons8.com/ios-filled/100/000000/settings--v1.png" alt="settings--v1" buttonText={t('settings')}  />
       </div>

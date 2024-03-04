@@ -50,7 +50,6 @@ const TodoList = ({ setPopUp}) => {
         setFind(simplifiedFind);
     };
     
-    
 
     const addTodo = (map, task, date, rate) => {
         const currentDate = new Date();

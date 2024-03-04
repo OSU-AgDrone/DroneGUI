@@ -65,7 +65,7 @@ const SavedMapsPage = (props) => {
         <>
             <h1 className='title'>{t("savedMaps")} <img id="titleImg" src="https://img.icons8.com/45/map.png"></img></h1>
             <div className='pageContainer'>
-            <BatteryGauge value={87} size={200} orientation="vertical" customization={customization} />  {/*change battery value to get battery from drone */}
+            <BatteryGauge value={9} size={200} orientation="vertical" customization={customization} />  {/*change battery value to get battery from drone */}
                 <div className='button-container'>
                     <button className='button findDroneButton' style={{ "marginTop": "3rem" }}>
                         {t("loadMap")}

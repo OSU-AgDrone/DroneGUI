@@ -1,5 +1,6 @@
 from mavsdk.mission import MissionItem, MissionPlan
 import matplotlib.pyplot as plt
+import json
 
 
 """
@@ -123,7 +124,7 @@ def generate_waypoints_from_boundaries(boundaries):
         waypoints.append(right_waypoints.pop(0))
         if right_waypoints:
             waypoints.append(right_waypoints.pop(0))
-
+    
     return waypoints
 
 def visualize_waypoints_xy(waypoints, boundaries):

@@ -33,6 +33,7 @@ export default function MapDrawShape(props) {
   function onDrawCallback(shape) {
     document.documentElement.setAttribute("unsavedChanges", "true")
     setState(prevState => ({ ...prevState, shape, drawingMode: false }));
+    props.callback(shape)
   }
 
   function setDrawingMode(drawingMode) {

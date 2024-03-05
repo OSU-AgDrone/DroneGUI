@@ -4,6 +4,9 @@ from mavsdk.async_plugin_manager import AsyncPluginManager
 import asyncio
 from mavsdk import System
 from flask_cors import CORS
+import json
+import platform
+import subprocess
 
 from connection_functions import find_serial_port, connectToDroneTimeout, connectToDroneSim
 from mission_planner import plan_from_boundaries, generate_mission_plan
@@ -119,8 +122,16 @@ async def land_drone():
 @app.route('/fly-mission')
 # @check_drone_connected
 async def fly_mission():
-    drone = System()
-    await drone.connect(system_address="udp://:14540")
+    system = platform.system()
+    serialPort = 'COM3'
+    connection_string = f"serial://{serialPort}:57600"
+
+    if system == 'Windows':
+        subprocess.Popen(['./bin/mavsdk_server_win32.exe', connection_string])
+        drone = System(mavsdk_server_address='localhost', port=50051)
+    else:
+        drone = System()
+    await drone.connect(system_address=connection_string)
 
     print("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
@@ -128,13 +139,15 @@ async def fly_mission():
             print(f"-- Connected to drone!")
             break
     if drone:
-        example_waypoints = [ # this is the example from mavsdk. should correspond to europe
-            {"lat": 47.3980398, "lng": 8.5455725},         
-            {"lat": 47.3980362, "lng": 8.54501464}, 
-            {"lat": 47.3978256, "lng": 8.54500928}
-        ]
+        waypoints = request.json['shape']
 
-        plan = generate_mission_plan(example_waypoints)
+        # Save the route
+        with open('routes/routes.json', mode='w', encoding='utf-8') as feedsjson:
+            feeds = json.load(feedsjson)
+            feeds.append(waypoints)
+            json.dump(feeds, feedsjson)
+
+        plan = generate_mission_plan(waypoints)
     
         await drone.mission.set_return_to_launch_after_mission(True)
 

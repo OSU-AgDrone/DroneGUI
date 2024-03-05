@@ -57,5 +57,6 @@
     "confirm_form": "",
     "cancel": "Cancel",
     "ok": "OK",
-    "unsavedChangeTitle": "Warning! Unsaved Changes!"
+    "unsavedChangeTitle": "Warning! Unsaved Changes!",
+    "flyMission": "Fly Mission"
 }

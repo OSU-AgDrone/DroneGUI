@@ -30,4 +30,4 @@ npm-debug.log.*
 
 # Python
 venv
-__pycache
+__pycache__

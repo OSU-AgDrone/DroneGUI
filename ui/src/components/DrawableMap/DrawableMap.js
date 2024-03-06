@@ -91,10 +91,10 @@ MapDrawShape.defaultProps = {
     tilt: 0
   },
   defaultCenter: {
-    lat: 39.58875553716348,
-    lng: -8.576849426688483
+    lat: 44.5650665,
+    lng: -123.2865842,
   },
-  defaultZoom: 7,
+  defaultZoom: 18,
   polygonOptions: {
     clickable: false,
     fillColor: "#303030",

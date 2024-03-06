@@ -86,7 +86,7 @@ def beep_drone():
 # @check_drone_connected
 async def arm_drone():
     print("Arming drone")
-    await app.drone_system.connect()
+    # await app.drone_system.connect()
     await app.drone_system.action.arm()
     print("Drone armed!")
     return 'Drone armed!'
@@ -106,6 +106,9 @@ async def disarm_drone():
 @app.route('/takeoff')
 # @check_drone_connected
 async def takeoff_drone():
+    serialPort = find_serial_port()
+    drone, mavsdk_server = await connectToDroneTimeout(serialPort, 20) # connect to the drone with a failure timeout of 20 seconds
+    app.drone_system = drone
     await app.drone_system.action.takeoff()
     print("Drone takeoff!")
     return 'Drone takeoff!'
@@ -119,7 +122,7 @@ async def land_drone():
     return 'Drone landed!'
 
 # CURRENTLY A TESTING ROUTE. 
-@app.route('/fly-mission')
+@app.route('/fly-mission', methods=['POST'])
 # @check_drone_connected
 async def fly_mission():
     system = platform.system()
@@ -140,14 +143,7 @@ async def fly_mission():
             break
     if drone:
         waypoints = request.json['shape']
-
-        # Save the route
-        with open('routes/routes.json', mode='w', encoding='utf-8') as feedsjson:
-            feeds = json.load(feedsjson)
-            feeds.append(waypoints)
-            json.dump(feeds, feedsjson)
-
-        plan = generate_mission_plan(waypoints)
+        plan = plan_from_boundaries(waypoints)
     
         await drone.mission.set_return_to_launch_after_mission(True)
 

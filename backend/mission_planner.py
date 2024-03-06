@@ -191,7 +191,7 @@ def visualize_waypoints_ll(waypoints, boundaries):
     plt.show()
 
 
-def generate_mission_plan(waypoints, altitude=5, speed=5, is_fly_through=True, loiter_time=float("nan"), vehicle_action=float("nan")): 
+def generate_mission_plan(waypoints, altitude, speed, is_fly_through=True, loiter_time=float("nan"), vehicle_action=float("nan")): 
     """
     Generates a mission from the given waypoints and parameters
     inputs:
@@ -226,7 +226,7 @@ def generate_mission_plan(waypoints, altitude=5, speed=5, is_fly_through=True, l
 
     return MissionPlan(mission_items)
 
-def plan_from_boundaries(boundaries, altitude=5, speed=5, is_fly_through=True, loiter_time=float("nan"), vehicle_action=float("nan")):
+def plan_from_boundaries(boundaries, altitude=3, speed=2, is_fly_through=True, loiter_time=float("nan"), vehicle_action=float("nan")):
     """
     Generates a mission plan from the given boundaries and parameters
     inputs:

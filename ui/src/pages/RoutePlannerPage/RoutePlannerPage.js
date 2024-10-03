@@ -9,7 +9,7 @@ const RoutePlannerPage = () => {
     const [shape, setShape] = useState([])
     
     const makeRequest = () => {
-        fetch('http://localhost:5000/generate-mission-plan', {
+        fetch('http://localhost:5000/fly-mission', {
             method: 'post',
             mode: 'cors',
             headers: {'Content-Type':'application/json'},
@@ -28,7 +28,7 @@ const RoutePlannerPage = () => {
                     <MapDrawShape callback={setShape}/>
                 </div>
                 <div className='button-container'>
-                    <button onClick={makeRequest} className='regularButton button'>{t("saveMap")}</button>
+                    <button onClick={makeRequest} className='regularButton button'>{t("flyMission")}</button>
                 </div>
             </div>
         </>

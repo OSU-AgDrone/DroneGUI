@@ -4,6 +4,9 @@ from mavsdk.async_plugin_manager import AsyncPluginManager
 import asyncio
 from mavsdk import System
 from flask_cors import CORS
+import json
+import platform
+import subprocess
 
 from connection_functions import find_serial_port, connectToDroneTimeout, connectToDroneSim
 from mission_planner import plan_from_boundaries, generate_mission_plan
@@ -83,7 +86,7 @@ def beep_drone():
 # @check_drone_connected
 async def arm_drone():
     print("Arming drone")
-    await app.drone_system.connect()
+    # await app.drone_system.connect()
     await app.drone_system.action.arm()
     print("Drone armed!")
     return 'Drone armed!'
@@ -103,6 +106,9 @@ async def disarm_drone():
 @app.route('/takeoff')
 # @check_drone_connected
 async def takeoff_drone():
+    serialPort = find_serial_port()
+    drone, mavsdk_server = await connectToDroneTimeout(serialPort, 20) # connect to the drone with a failure timeout of 20 seconds
+    app.drone_system = drone
     await app.drone_system.action.takeoff()
     print("Drone takeoff!")
     return 'Drone takeoff!'
@@ -116,11 +122,19 @@ async def land_drone():
     return 'Drone landed!'
 
 # CURRENTLY A TESTING ROUTE. 
-@app.route('/fly-mission')
+@app.route('/fly-mission', methods=['POST'])
 # @check_drone_connected
 async def fly_mission():
-    drone = System()
-    await drone.connect(system_address="udp://:14540")
+    system = platform.system()
+    serialPort = 'COM3'
+    connection_string = f"serial://{serialPort}:57600"
+
+    if system == 'Windows':
+        subprocess.Popen(['./bin/mavsdk_server_win32.exe', connection_string])
+        drone = System(mavsdk_server_address='localhost', port=50051)
+    else:
+        drone = System()
+    await drone.connect(system_address=connection_string)
 
     print("Waiting for drone to connect...")
     async for state in drone.core.connection_state():
@@ -128,13 +142,8 @@ async def fly_mission():
             print(f"-- Connected to drone!")
             break
     if drone:
-        example_waypoints = [ # this is the example from mavsdk. should correspond to europe
-            {"lat": 47.3980398, "lng": 8.5455725},         
-            {"lat": 47.3980362, "lng": 8.54501464}, 
-            {"lat": 47.3978256, "lng": 8.54500928}
-        ]
-
-        plan = generate_mission_plan(example_waypoints)
+        waypoints = request.json['shape']
+        plan = plan_from_boundaries(waypoints)
     
         await drone.mission.set_return_to_launch_after_mission(True)
 

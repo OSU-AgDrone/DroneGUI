@@ -1,6 +1,8 @@
 from mavsdk.mission import MissionItem, MissionPlan
 import matplotlib.pyplot as plt
 import json
+from matplotlib.path import Path
+import numpy as np
 
 
 """
@@ -45,6 +47,60 @@ def xy_to_ll(x, y):
     lat = y / R * 180 / 3.14159
     lng = x / R * 180 / 3.14159
     return {"lat": lat, "lng": lng}
+
+def generate_occupancy_grid(boundaries,obstacles = [], resolution=1):
+    """
+    Generates an occupancy grid from the given boundaries and resolution
+    inputs:
+    - boundaries: list of dictionaries, each containing a x and y key. represents a polygon.
+    - obstacles: list of dictionaries, each containing a x and y key
+    - resolution: float, the resolution of the occupancy grid
+    returns:
+    - occupancy_grid: 2D list of booleans, the occupancy grid
+    """
+
+    # get the min and max x and y values
+    x_min = min(boundaries, key=lambda x: x["x"])["x"]
+    x_max = max(boundaries, key=lambda x: x["x"])["x"]
+    y_min = min(boundaries, key=lambda x: x["y"])["y"]
+    y_max = max(boundaries, key=lambda x: x["y"])["y"]
+
+    # calculate the number of cells in the x and y directions
+    num_x_cells = int((x_max - x_min) / resolution)
+    num_y_cells = int((y_max - y_min) / resolution)
+
+    # create the occupancy grid
+    occupancy_grid = [[False for _ in range(num_x_cells)] for _ in range(num_y_cells)]
+
+    # create a path object from the boundaries
+    boundary_path = Path([(point["x"], point["y"]) for point in boundaries])
+
+    # iterate through each cell in the occupancy grid
+    for i in range(num_x_cells):
+        for j in range(num_y_cells):
+            # calculate the x and y coordinates of the cell
+            x = x_min + i * resolution
+            y = y_min + j * resolution
+
+            # check if the cell is within the boundaries
+            if boundary_path.contains_point((x, y)):
+                occupancy_grid[j][i] = True
+
+    return occupancy_grid
+
+
+def visualize_occupancy_grid(occupancy_grid):
+    """
+    Visualizes the occupancy grid on a graph. Occupied cells in black, unoccupied cells in white.
+    inputs:
+    - occupancy_grid: 2D list of booleans, the occupancy grid
+    """
+    plt.imshow(occupancy_grid, cmap="binary")
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.title("Occupancy Grid Visualization")
+    plt.grid(True)
+    plt.show()
 
 def get_x_coordinate(y, x1, y1, slope):
     """ 
@@ -258,20 +314,28 @@ if __name__ == "__main__":
         { "lat": 44.56441439616401, "lng": -123.2792677605855 } 
     ]
 
-    ## EXAMPLE USAGE or plan_from_boundaries
-    # convert boundaries to xy
+    # ## EXAMPLE USAGE or plan_from_boundaries
+    # # convert boundaries to xy
+    # converted_boundaries = [lat_lng_to_xy(point["lat"], point["lng"]) for point in example_boundaries]
+    # # generate waypoints through boundaries
+    # waypoints = generate_waypoints_from_boundaries(converted_boundaries)
+    # visualize_waypoints_xy(waypoints, converted_boundaries)
+
+    # # convert waypoints to lat and lng
+    # ll_waypoints = [xy_to_ll(point["x"], point["y"]) for point in waypoints]
+    # visualize_waypoints_ll(ll_waypoints, example_boundaries)
+
+    # # create mission plan
+    # mission_plan = generate_mission_plan(ll_waypoints)
+    # print(mission_plan)
+
+    ### TESTING OCCUPANCY GRID
+    # boundaries to xy
     converted_boundaries = [lat_lng_to_xy(point["lat"], point["lng"]) for point in example_boundaries]
-    # generate waypoints through boundaries
-    waypoints = generate_waypoints_from_boundaries(converted_boundaries)
-    visualize_waypoints_xy(waypoints, converted_boundaries)
+    # generate occupancy grid
+    occupancy_grid = generate_occupancy_grid(converted_boundaries, 0.25)
+    visualize_occupancy_grid(occupancy_grid)
 
-    # convert waypoints to lat and lng
-    ll_waypoints = [xy_to_ll(point["x"], point["y"]) for point in waypoints]
-    visualize_waypoints_ll(ll_waypoints, example_boundaries)
-
-    # create mission plan
-    mission_plan = generate_mission_plan(ll_waypoints)
-    print(mission_plan)
 
 
 

@@ -30,4 +30,5 @@ npm-debug.log.*
 
 # Python
 venv
+dronegui-env
 __pycache__

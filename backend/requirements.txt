@@ -1,3 +1,5 @@
 flask[async]
 mavsdk
 pyserial
+flask_cors
+matplotlib

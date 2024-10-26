@@ -1,27 +1,26 @@
 import React, { useState } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import Navbar from '../components/Navbar/Navbar';
-import '../components/Navbar/Navbar.css';
+import Navbar from './components/Navbar/Navbar';
 import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
-import MainPage from '../pages/MainPage/MainPage';
-import RoutePlannerPage from '../pages/RoutePlannerPage/RoutePlannerPage';
-import SettingsPage from '../pages/SettingsPage/SettingsPage';
-import FindDronePage from '../pages/FindDronePage/FindDronePage';
-import SavedMapsPage from '../pages/SavedMapsPage/SavedMapsPage';
-import TodoList from '../pages/TasksPage/TasksPage';
-import AlertDialog from '../components/AlertDialog';
+import MainPage from './pages/MainPage/MainPage';
+import RoutePlannerPage from './pages/RoutePlannerPage/RoutePlannerPage';
+import SettingsPage from './pages/SettingsPage/SettingsPage';
+import FindDronePage from './pages/FindDronePage/FindDronePage';
+import SavedMapsPage from './pages/SavedMapsPage/SavedMapsPage';
+import TodoList from './pages/TasksPage/TasksPage';
+import AlertDialog from './components/AlertDialog';
 
 i18next.init({
   interpolation: { escapeValue: false },
   lng: localStorage.getItem("language") ? localStorage.getItem("language") : 'en',
   resources: {
     en: {
-      translation: require('../i18n/english/translation.json'),
+      translation: require('./i18n/english/translation.json'),
     },
     th: {
-      translation: require('../i18n/thai/translation.json'),
+      translation: require('./i18n/thai/translation.json'),
     }
   },
 });

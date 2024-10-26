@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import '../renderer/App.css';
+import '../App.css';
 
 const Ringer = () => {
     const [activeButton, setActiveButton] = useState(localStorage.getItem('activeButton') || '');

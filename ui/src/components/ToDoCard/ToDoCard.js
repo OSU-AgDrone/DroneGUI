@@ -1,4 +1,4 @@
-import '../../renderer/App.css';
+import '../../App.css';
 import './ToDoCard.css';
 
 const ToDoCard = (props) => {

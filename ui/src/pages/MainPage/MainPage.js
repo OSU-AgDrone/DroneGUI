@@ -1,6 +1,7 @@
 import ButtonWithIcon from '../../components/MainPageButton/MainPageButton';
-import './MainPage.css';
 import '../../App.css';
+import './MainPage.css';
+import Ringer from '../../components/Ringer';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -23,11 +24,10 @@ const MainPage = (props) => {
       <br/>
       <div className="capacityIcons"></div>
       <div className="buttonContainer">
+        <Ringer />
         <ButtonWithIcon url="/routes" buttonIcon="https://img.icons8.com/pastel-glyph/64/route--v1.png" buttonText={t('routePlanner')} />
         <ButtonWithIcon url="/savedMaps" buttonIcon="https://img.icons8.com/64/map.png" buttonText={t('savedMaps')} />
-        <ButtonWithIcon url="/tasks" buttonIcon="https://img.icons8.com/100/clipboard.png" buttonText={t("Task List")}  />
-        <ButtonWithIcon url="/findDrone" buttonIcon="https://img.icons8.com/100/map-marker--v1.png" alt="map-marker--v1" buttonText={t('findDrone')}  />
-        <ButtonWithIcon url="/settings" buttonIcon="https://img.icons8.com/100/000000/settings--v1.png" alt="settings--v1" buttonText={t('settings')}  />
+        <ButtonWithIcon link_id="button-link-settings" div_id="button-div-settings" img_id="button-img-settings" url="/settings" buttonIcon="https://img.icons8.com/?size=100&id=2969&format=png&color=000000" alt="settings--v1"  />
       </div>
     </div>
   );

@@ -154,11 +154,6 @@ html[data-theme="white"] a:hover img, html[data-theme="white"] a:hover img {
     filter: invert(100%) hue-rotate(180deg);
 }
 
-
-
-
-
-
  
 body {
     background: var(--background-color);

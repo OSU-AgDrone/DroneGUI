@@ -1,9 +1,31 @@
+#button-link-settings {
+    padding: 1px 1px;   
+    color: blue;        
+    border: none;         
+    border-radius: 5px;   
+    cursor: pointer;           
+    z-index: 1000;       
+}
+
+#button-div-settings {
+    position: fixed;      
+    top: 10px;            
+    left: 10px;   
+    height: 50px;
+    width: 50px; 
+}
+
+#button-img-settings:hover {
+    /* TODO this isn't right yet, kind of buggy */
+    filter: grayscale(0) brightness(0) sepia(1) hue-rotate(180deg) saturate(3); 
+}
+
 .buttonContainer {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    margin-right: 20px;
+    margin-right: 5px;
     flex-wrap: wrap;
 }
 

@@ -1,7 +1,7 @@
 import './SavedMapsPage.css';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import '../../renderer/App.css';
+import '../../App.css';
 import BatteryGauge from 'react-battery-gauge'
 
 const SavedMapsPage = (props) => {

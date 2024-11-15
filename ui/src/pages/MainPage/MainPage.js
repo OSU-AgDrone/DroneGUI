@@ -1,6 +1,6 @@
 import ButtonWithIcon from '../../components/MainPageButton/MainPageButton';
 import './MainPage.css';
-import '../../renderer/App.css';
+import '../../App.css';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

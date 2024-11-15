@@ -2,7 +2,7 @@ import './RoutePlannerPage.css';
 import { useTranslation } from 'react-i18next';
 import MapDrawShape from '../../components/DrawableMap/DrawableMap';
 import { useState } from 'react';
-import "../../renderer/App.css"
+import "../../App.css"
 
 const RoutePlannerPage = () => {
 

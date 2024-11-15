@@ -6,7 +6,7 @@ An open source agricultural drone built by students at Oregon State University
 ### First Time Startup
 1. Setup the [Raspberry Pi Tablet](documentation/rasp_pi_setup)
 2. Have your drone completely wired, connected, and setup.
-   - We have a [parts list](documentation/parts_list) for the version we used for testing and prototyping.
+   - We have a [parts list](documentation/parts_list.md) for the version we used for testing and prototyping.
 3. If you are using a Transmitter controller, ensure it is connected according to the manufacturers instructions.
 
 ### General Startup

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import GoogleMapReact from 'google-map-react';
 import { useTranslation } from 'react-i18next';
-import "../../renderer/App.css"
+import "../../App.css"
 import MapDrawShapeManager from 'google-maps-draw-shape-lib';
 import './DrawableMap.css';
 

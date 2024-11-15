@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import './Navbar.css';
-import "../../renderer/App.css";
+import "../../App.css";
 import { useTranslation } from 'react-i18next';
 
 const Navbar = ({setPopUp}) =>  {

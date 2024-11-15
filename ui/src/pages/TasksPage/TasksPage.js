@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import "./TasksPage.css";
-import "../../renderer/App.css";
+import "../../App.css";
 import ToDoCard from '../../components/ToDoCard/ToDoCard';
 import ToDoMaker from '../../components/ToDoMaker/ToDoMaker';
 import Modal from '../../components/Modal';

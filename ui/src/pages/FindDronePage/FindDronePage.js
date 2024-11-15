@@ -1,8 +1,8 @@
-import './findDronePage.css';
+import './FindDronePage.css';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Ringer from '../../components/Ringer';
-import '../../renderer/App.css';
+import '../../App.css';
 
 const FindDronePage = (props) => {
     const { t } = useTranslation();

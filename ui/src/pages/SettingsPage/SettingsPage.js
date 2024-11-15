@@ -12,7 +12,7 @@ const SettingsPage = () => {
 
   return (
     <div id="settingsPage">
-      <h1>{t("settings")} <img id="titleImg" src="https://img.icons8.com/ios-filled/40/000000/settings--v1.png"></img></h1>
+      <h1>{t("settings")}</h1>
       <FontSizeSelector />
       <br />
       <hr />

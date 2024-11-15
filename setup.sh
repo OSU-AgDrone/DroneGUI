@@ -3,10 +3,17 @@ echo "Script started!"
 
 # Install dependencies
 echo "Installing base dependencies..."
+
 sudo apt update -y # update things
 sudo apt install python3 python3-pip git -y # install python in case it's not installed
 #sudo apt install python3 idle3 python3-pip git python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame -y
 sudo usermod -a -G dialout $USER # add user to dialout group
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash # installs nvm
+nvm install 22 # download and install Node.js (you may need to restart the terminal)
+node -v # verifies the right Node.js version is in the environment
+npm -v # verifies the right npm version is in the environment
+
 echo "Base dependencies installed!"
 
 # create virtual environment

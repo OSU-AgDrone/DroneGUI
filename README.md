@@ -12,7 +12,9 @@ An open source agricultural drone built by students at Oregon State University
 ### General Startup
 1. Plug in your drone batteries
 
-### Troubleshooting
+## Troubleshooting
+### Basic Troubleshooting
+1. Once the drone has been safely landed and disarmed, unplug and replug the batteries. Trust me, this can fix most problems with electronics.
 
 ### Advanced Issues and Troubleshooting
 If you are having issues that aren't listed or addressed above...

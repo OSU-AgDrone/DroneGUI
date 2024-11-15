@@ -19,11 +19,3 @@
     text-align: center;
     margin: 0;
 }
-
-html[data-theme="light"] #home_link {
-   border: 2px solid #b7691a;
-}
-
-html[data-theme="dark"] #home_link {
-    border: 2px solid #666db8;
- }

@@ -31,16 +31,16 @@ html[data-theme="light"] button:hover, html[data-theme="light"]  a:hover, html[d
 }
 
 html[data-theme="light"] a:hover img, html[data-theme="light"] button:hover img {
-    filter: invert(40%) hue-rotate(120deg) saturate(100%) grayscale(0%);
+    filter: invert(40%);
 }
 
 html[data-theme="light"]img :not(#map-container) {
-    filter: invert(40%) hue-rotate(120deg) saturate(100%) grayscale(0%);
+    filter: invert(40%);
 }
 
 html[data-theme="light"] button:active, html[data-theme="light"] button.active{
-    color:#291f15;
-    border-bottom: 3.5px #291f15;
+    color:#1a2415;
+    border-bottom: 3.5px #1a2415;
     border-style:groove;
 }
 
@@ -51,7 +51,7 @@ html[data-theme="dark"] {
 }
 
 /* Special dark mode settings to ensure the settings image colors are inverted*/
-html[data-theme="dark"] #button-img-settings {
+html[data-theme="dark"] .buttonIcon {
     filter:invert(100%);
 }
 

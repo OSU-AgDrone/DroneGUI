@@ -1,8 +1,8 @@
-html[data-theme="dark"] .regularButton, html[data-theme="black"] .regularButton  {
+html[data-theme="dark"] .regularButton {
     box-shadow: .2px .5px 1.5px .2px rgba(255, 255, 255, 0.603);
  }
 
-html[data-theme="light"] .regularButton, html[data-theme="white"] .regularButton  {
+html[data-theme="light"] .regularButton {
     box-shadow: .5px 1px 2px .5px rgba(35, 35, 35, 0.323);
 }
 

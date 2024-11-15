@@ -27,11 +27,3 @@ html[data-theme="light"] #home_link {
 html[data-theme="dark"] #home_link {
     border: 2px solid #666db8;
  }
-
- html[data-theme="black"] #home_link {
-    border: 2px solid #c5c5c5;
- }
-
- html[data-theme="white"] #home_link {
-    border: 2px solid #3a3a3a;
- }

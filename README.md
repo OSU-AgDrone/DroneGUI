@@ -1,6 +1,7 @@
 # Ag Drone Project
 An open source agricultural drone built by students at Oregon State University
-![Ag Drone Logo](documentation/images/ag_drone.png | width=100)
+
+<img src="documentation/images/ag_drone.png" alt="Ag Drone Logo" width="200">
 
 ## How to Turn the Drone On
 ### First Time Startup

@@ -9,9 +9,7 @@ sudo apt install python3 python3-pip git -y # install python in case it's not in
 #sudo apt install python3 idle3 python3-pip git python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame -y
 sudo usermod -a -G dialout $USER # add user to dialout group
 
-curl -o install.sh https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh # installs nvm
-bash install.sh # run install script
-nvm install 22 # download and install Node.js (you may need to restart the terminal)
+sudo apt-get install nodejs npm -y
 node -v # verifies the right Node.js version is in the environment
 npm -v # verifies the right npm version is in the environment
 

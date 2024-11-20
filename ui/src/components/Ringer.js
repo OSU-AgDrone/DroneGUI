@@ -27,7 +27,7 @@ const Ringer = () => {
                 marginBottom: "2rem"
             }}
         >
-            <img className='ringerButton' style={{ marginTop: "1px", paddingRight: "5px" }} src="https://img.icons8.com/ios-filled/50/alarm" width="24" height="24" alt="Ringer" />
+            <img className='ringerButton' style={{ marginTop: "1px", paddingRight: "5px" }} src="https://img.icons8.com/ios-filled/50/alarm" width="95" height="95" alt="Ringer" />
             {activeButton === "ringer" ? t("deactivateRinger") : t("activateRinger")}
         </button>
     );

@@ -1,9 +1,25 @@
+#button-link-settings {
+    padding: 1px 1px;   
+    border: none;         
+    border-radius: 5px;   
+    cursor: pointer;           
+    z-index: 1000;       
+}
+
+#button-div-settings {
+    position: fixed;      
+    top: 10px;            
+    left: 10px;   
+    height: 50px;
+    width: 50px; 
+}
+
 .buttonContainer {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    margin-right: 20px;
+    margin-right: 5px;
     flex-wrap: wrap;
 }
 

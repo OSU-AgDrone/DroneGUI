@@ -7,37 +7,15 @@
     cursor: pointer;
     font-size: larger;
     font-weight: bold;
-    padding: 10px 20px;
+    padding: 10px 10px;
 }
 
 .buttonIcon {
     display: block;
     margin: auto;
-    margin-top: 2vh;
 }
 
 .buttonText {
     text-align: center;
     margin: 0;
 }
-
-#home_link {
-    padding: 0.5em 1em;
-    margin: 0.5em 1em;
-}
-
-html[data-theme="light"] #home_link {
-   border: 2px solid #b7691a;
-}
-
-html[data-theme="dark"] #home_link {
-    border: 2px solid #666db8;
- }
-
- html[data-theme="black"] #home_link {
-    border: 2px solid #c5c5c5;
- }
-
- html[data-theme="white"] #home_link {
-    border: 2px solid #3a3a3a;
- }

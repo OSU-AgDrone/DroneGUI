@@ -28,6 +28,6 @@
 }
 
 
-html[data-theme="dark"] #titleImg :not(#map-container), html[data-theme="black"] #titleImg :not(#map-container) {
+html[data-theme="dark"] #titleImg :not(#map-container) {
     filter: invert(100%) hue-rotate(180deg);
 }

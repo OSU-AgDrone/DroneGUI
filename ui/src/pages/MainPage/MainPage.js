@@ -4,6 +4,7 @@ import './MainPage.css';
 import Ringer from '../../components/Ringer';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import BatteryGauge from 'react-battery-gauge'
 
 const MainPage = (props) => {
   const { t } = useTranslation();
@@ -24,6 +25,7 @@ const MainPage = (props) => {
       <br/>
       <div className="capacityIcons"></div>
       <div className="buttonContainer">
+        <BatteryGauge value={9} size={200} orientation="vertical" />  {/*change battery value to get battery from drone */}
         <Ringer />
         <ButtonWithIcon url="/routes" buttonIcon="https://img.icons8.com/pastel-glyph/64/route--v1.png" buttonText={t('routePlanner')} />
         <ButtonWithIcon url="/savedMaps" buttonIcon="https://img.icons8.com/64/map.png" buttonText={t('savedMaps')} />

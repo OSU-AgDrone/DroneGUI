@@ -80,6 +80,11 @@ const SavedMapsPage = (props) => {
                         {t("land")}
                         <img style={{marginLeft:".5rem"}} width="35" height="35" src="https://img.icons8.com/ios/50/airplane-landing.png" alt="airplane-landing"/>
                     </button>
+
+                    <h2>{t("Main Page")}</h2>
+                    <Link className='regularButton' to='/'>
+                        {t("back")}
+                    </Link>
                 </div>
             </div>
             

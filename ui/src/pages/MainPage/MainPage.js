@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import BatteryGauge from 'react-battery-gauge'
 
+
 const MainPage = (props) => {
   const { t } = useTranslation();
   const [theme, setTheme] = useState(() => {
@@ -25,7 +26,19 @@ const MainPage = (props) => {
       <br/>
       <div className="capacityIcons"></div>
       <div className="buttonContainer">
-        <BatteryGauge value={9} size={200} orientation="vertical" />  {/*change battery value to get battery from drone */}
+        <BatteryGauge 
+          className="battery" 
+          value={9 /* TODO update to get battery level from drone */} 
+          size={200} 
+          orientation="vertical"
+          customization={{
+            batteryBody: {
+              strokeColor: theme == "light" ? "black" : "white"
+            },
+          batteryCap: {
+            strokeColor: theme == "light" ? "black" : "white"
+          }}}
+          />
         <Ringer />
         <ButtonWithIcon url="/routes" buttonIcon="https://img.icons8.com/pastel-glyph/64/route--v1.png" buttonText={t('routePlanner')} />
         <ButtonWithIcon url="/savedMaps" buttonIcon="https://img.icons8.com/64/map.png" buttonText={t('savedMaps')} />

@@ -42,7 +42,6 @@ html[data-theme="light"] button:active, html[data-theme="light"] button.active{
 }
 
 /* Colors: TODO FILL IN
-  from colorhunt.co
 */
 html[data-theme="dark"] {
     --background-color: #171010;

@@ -7,8 +7,7 @@ git pull
 # start the React frontend 
 echo "Starting frontend..."
 cd ui
-bash -- /bin/bash -c "npm start"
-cd ..
+npm start
 
 echo "Launching browser..."
-firefox -kiosk -private-window http://localhost:5000
+chromium-browser http://localhost:5000 --kiosk --noerrdialogs --disable-infobars --no-first-run --ozone-platform=wayland --enable-features=OverlayScrollbars --start-maximized

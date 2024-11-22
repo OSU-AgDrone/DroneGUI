@@ -7,7 +7,7 @@ git pull
 # start the React frontend 
 echo "Starting frontend..."
 cd ui
-gnome-terminal -- /bin/sh -c "npm start"
+bash -- /bin/sh -c "npm start"
 cd ..
 
 echo "Launching browser..."

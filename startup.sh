@@ -9,4 +9,4 @@ cd ui
 npm start 
 
 echo "Launching browser..."
-open http://localhost:5000
+open http://localhost:3000 --start-fullscreen

@@ -24,7 +24,12 @@ const MainPage = (props) => {
     <div>
       <br/>
       <br/>
-      <div className="capacityIcons"></div>
+      <div className="textContainer">
+      <p id="droneStatus">Status: On Mission</p> { /*TODO update this to reflect actual data*/ }
+      <p id="currentRoute">Current Route: None</p> { /*TODO update this to reflect actual data*/ }
+      <p id="connectionStrength">Connection Strength: 🟨🟨🟨</p> { /*TODO update this to reflect actual data*/ }
+      <p id="lastUpdated">Last Updated: 2 mins ago</p> { /*TODO update this to reflect actual data*/ }
+      </div>
       <div className="buttonContainer">
         <BatteryGauge 
           className="battery" 

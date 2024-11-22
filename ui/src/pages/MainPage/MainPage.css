@@ -23,3 +23,24 @@
     flex-wrap: wrap;
 }
 
+.textContainer {
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center; 
+    margin-top: 20px;
+}
+
+#droneStatus {
+    font-size: 30px; 
+    text-decoration: none;
+}
+
+#currentRoute {
+    font-size: 20px;
+}
+
+#connectionStrength {
+    font-size: 16px;
+}
+

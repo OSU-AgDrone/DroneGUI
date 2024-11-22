@@ -7,7 +7,8 @@ git pull
 # start the React frontend 
 echo "Starting frontend..."
 cd ui
-npm start 
+gnome-terminal -- /bin/sh -c "npm start"
+cd ..
 
 echo "Launching browser..."
-firefox -kiosk -private-windowhttp://localhost:3000
+#firefox -kiosk -private-window http://localhost:3000

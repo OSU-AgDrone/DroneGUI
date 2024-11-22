@@ -11,4 +11,4 @@ bash -- /bin/sh -c "npm start"
 cd ..
 
 echo "Launching browser..."
-#firefox -kiosk -private-window http://localhost:3000
+firefox -kiosk -private-window http://localhost:3000

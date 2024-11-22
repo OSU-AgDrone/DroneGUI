@@ -9,4 +9,4 @@ cd ui
 npm start 
 
 echo "Launching browser..."
-open http://localhost:3000 --start-fullscreen
+chromium-browser -kiosk -private-window http://localhost:3000

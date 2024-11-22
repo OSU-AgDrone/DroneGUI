@@ -9,4 +9,4 @@ cd ui
 npm start 
 
 echo "Launching browser..."
-chromium-browser -kiosk -private-window http://localhost:3000
+chromium-browser --kiosk --app=http://localhost:3000

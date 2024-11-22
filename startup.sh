@@ -1,7 +1,8 @@
 #!/bin/bash
-# start the backend in the virtual python environment created in setup.sh
-echo "Starting backend..."
-python -m flask run
+
+# Update repo
+echo "Updating software..."
+git pull
 
 # start the React frontend 
 echo "Starting frontend..."

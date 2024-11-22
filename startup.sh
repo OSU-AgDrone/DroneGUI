@@ -9,4 +9,4 @@ cd ui
 npm start 
 
 echo "Launching browser..."
-chromium-browser --window-size=800,480 --start-fullscreen --app=http://localhost:3000
+firefox -kiosk -private-windowhttp://localhost:3000

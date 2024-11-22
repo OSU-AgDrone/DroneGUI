@@ -5,7 +5,7 @@ echo "Script started!"
 echo "Installing base dependencies..."
 
 sudo apt update -y # update things
-sudo apt install python3 python3-pip git -y # install python in case it's not installed
+sudo apt install python3 python3-pip git firefox -y # install python in case it's not installed
 #sudo apt install python3 idle3 python3-pip git python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame -y
 sudo usermod -a -G dialout $USER # add user to dialout group
 

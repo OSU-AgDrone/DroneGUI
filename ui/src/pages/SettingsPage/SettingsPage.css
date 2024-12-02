@@ -10,30 +10,33 @@ html[data-theme="light"] .regularButton {
   padding:.5em 1em;
   margin: 0.25em .25em;
 }
-input[type="number"] {
-    width: 9rem;
-    padding: 0.5em 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: inherit;
-  }
-  
-  input[type="number"]:focus {
-    outline: none;
-    border-color: blue;
-    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); 
-  }
 
-  #settingsPage {
-    width: fit-content;
-    margin: 0 auto;
-    padding: 1em;
+#fontSizeSelector {
+  background-color: 0xFFFFFF; 
+  color: 0x000000;
+  cursor: pointer;
+  border: 0px;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* shadow */
+  cursor: pointer; 
+  outline: none;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* smooth hover effect */
+}
 
-  }
+#fontSizeSelector:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* bigger shadow on hover */
+}
 
-  hr {
-    width: 70%;
-    border: 1px solid rgb(224, 224, 224);
-  }
+#settingsPage {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+hr {
+  width: 70%;
+  border: 1px solid rgb(224, 224, 224);
+}
 
 

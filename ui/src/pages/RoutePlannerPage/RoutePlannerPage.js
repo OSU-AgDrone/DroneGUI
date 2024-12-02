@@ -1,4 +1,5 @@
 import './RoutePlannerPage.css';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import MapDrawShape from '../../components/DrawableMap/DrawableMap';
 import { useState } from 'react';
@@ -29,6 +30,10 @@ const RoutePlannerPage = () => {
                 </div>
                 <div className='button-container'>
                     <button onClick={makeRequest} className='regularButton button'>{t("flyMission")}</button>
+                    <h2>{t("Main Page")}</h2>
+                        <Link className='regularButton' to='/'>
+                            {t("back")}
+                        </Link>
                 </div>
             </div>
         </>

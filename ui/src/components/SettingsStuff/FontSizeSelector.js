@@ -18,6 +18,8 @@ const FontSizeSelector = () => {
         setFontSize(newSize);
         localStorage.setItem('fontSize', newSize);
         document.body.style.fontSize = newSize + 'px';
+        // selector doesn't get set with body.style.fontSize, do it explicitly
+        document.getElementById('fontSizeSelector').style.fontSize = newSize + 'px';
     };
 
     useEffect(() => {
@@ -26,6 +28,8 @@ const FontSizeSelector = () => {
             buttons[i].style.fontSize = fontSize + 'px';
             buttons[i].setAttribute('data-font-size', fontSize);
         }
+        document.getElementById('fontSizeSelector').style.fontSize = fontSize + 'px';
+        document.getElementById('fontSizeSelector').value = fontSize;
         return () => {
             for (let i = 0; i < buttons.length; i++) {
                 buttons[i].style.fontSize = buttons[i].getAttribute('data-font-size') + 'px';
@@ -67,12 +71,26 @@ const FontSizeSelector = () => {
                 {t('example')}: {example}px
             </p>
             <form>
-                <input
-                    placeholder={t('settingsRange')}
-                    type="number"
-                    onChange={(e) => handleFontSizeChangeExample(e.target.value)}
-                    required
-                />
+                <select 
+                id="fontSizeSelector"
+                type="number"
+                onChange={(e) => handleFontSizeChangeExample(e.target.value)}
+                required>
+                    <option value="12">12px</option>
+                    <option value="14">14px</option>
+                    <option value="16">16px</option>
+                    <option value="18">18px</option>
+                    <option value="20">20px</option>
+                    <option value="24">24px</option>
+                    <option value="28">28px</option>
+                    <option value="32">32px</option>
+                    <option value="36">36px</option>
+                    <option value="40">40px</option>
+                    <option value="44">44px</option>
+                    <option value="48">48px</option>
+                    <option value="52">52px</option>
+                    <option value="60">60px</option>
+                </select>
 
                 <button type="button" className="regularButton" onClick={() => handleFontSizeChange(num)}>
                     {t('changeFontSize')}

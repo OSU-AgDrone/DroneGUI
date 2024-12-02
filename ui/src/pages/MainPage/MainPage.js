@@ -4,6 +4,8 @@ import './MainPage.css';
 import Ringer from '../../components/Ringer';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import BatteryGauge from 'react-battery-gauge'
+
 
 const MainPage = (props) => {
   const { t } = useTranslation();
@@ -22,8 +24,26 @@ const MainPage = (props) => {
     <div>
       <br/>
       <br/>
-      <div className="capacityIcons"></div>
+      <div className="textContainer">
+      <p id="droneStatus">Status: On Mission</p> { /*TODO update this to reflect actual data*/ }
+      <p id="currentRoute">Current Route: None</p> { /*TODO update this to reflect actual data*/ }
+      <p id="connectionStrength">Connection Strength: 🟨🟨🟨</p> { /*TODO update this to reflect actual data*/ }
+      <p id="lastUpdated">Last Updated: 2 mins ago</p> { /*TODO update this to reflect actual data*/ }
+      </div>
       <div className="buttonContainer">
+        <BatteryGauge 
+          className="battery" 
+          value={9 /* TODO update to get battery level from drone */} 
+          size={200} 
+          orientation="vertical"
+          customization={{
+            batteryBody: {
+              strokeColor: theme == "light" ? "black" : "white"
+            },
+          batteryCap: {
+            strokeColor: theme == "light" ? "black" : "white"
+          }}}
+          />
         <Ringer />
         <ButtonWithIcon url="/routes" buttonIcon="https://img.icons8.com/pastel-glyph/64/route--v1.png" buttonText={t('routePlanner')} />
         <ButtonWithIcon url="/savedMaps" buttonIcon="https://img.icons8.com/64/map.png" buttonText={t('savedMaps')} />

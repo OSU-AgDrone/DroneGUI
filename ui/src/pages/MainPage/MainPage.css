@@ -23,14 +23,32 @@
     flex-wrap: wrap;
 }
 
-.buttonContainer2 {
+.RedRegularButton{
+    padding:.5em 1em;
+    margin: 0.25em .25em;
+    background-color: #a72828;
+  }
+
+  .button {
+    text-align: center; 
+    line-height: normal; 
+    transition: background-color 0.3s ease; 
+  }
+  
+  .RedRegularButton.button:hover {
+    color: #070601; 
+    background-color: #bd1c1c;
+  }
+
+  .RedRegularButton.button {
+    background-color: #7e0000;
+  }
+
+.missionButtons {
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    padding: 20px;
-    width: 30%;
-}
+    flex-direction: column; 
+    align-items: center; 
+  }
 
 .regularButton{
     padding:.5em 1em;
@@ -39,20 +57,19 @@
   }
 
   .button {
-    text-align: center; /* Center the text inside */
-    line-height: normal; /* Ensure proper line height */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
+    text-align: center; 
+    line-height: normal; 
+    transition: background-color 0.3s ease; 
   }
   
   .regularButton.button:hover {
-    color: #070601; /* Change text color on hover */
+    color: #070601; 
     background-color: #1cbd44;
   }
 
   .regularButton.button {
     background-color: #105220;
   }
-
 .textContainer {
     align-items: flex-start;
     justify-content: center;

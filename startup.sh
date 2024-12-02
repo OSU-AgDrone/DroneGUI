@@ -7,7 +7,7 @@ git pull
 # start the backend
 echo "Starting backend..."
 source drone-gui-venv/bin/activate
-python3 backend/app.py
+python3 backend/app.py &
 
 # start the React frontend 
 echo "Starting frontend..."
@@ -21,5 +21,6 @@ echo "Launching browser..."
 chromium-browser http://localhost:3000 --kiosk --noerrdialogs --disable-infobars --no-first-run --ozone-platform=wayland --enable-features=OverlayScrollbars --start-maximized
 
 killall node
+killall python3
 
 exit

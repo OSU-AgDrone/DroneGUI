@@ -6,7 +6,8 @@ git pull
 
 # start the backend
 echo "Starting backend..."
-python3 backend/app.py
+source backend/drone-gui-venv/bin/activate
+python -m flask run
 
 # start the React frontend 
 echo "Starting frontend..."

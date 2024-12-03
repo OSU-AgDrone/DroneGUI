@@ -1,93 +1,116 @@
 #button-link-settings {
-    padding: 1px 1px;   
-    border: none;         
-    border-radius: 5px;   
-    cursor: pointer;           
-    z-index: 1000;       
+  padding: 1px 1px;   
+  border: none;         
+  border-radius: 5px;   
+  cursor: pointer;           
+  z-index: 1000;       
 }
 
 #button-div-settings {
-    position: fixed;      
-    top: 10px;            
-    left: 10px;   
-    height: 50px;
-    width: 50px; 
+  position: fixed;      
+  top: 10px;            
+  left: 10px;   
+  height: 50px;
+  width: 50px; 
 }
 
 .buttonContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    margin-right: 5px;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  margin-right: 10%;
+  margin-left: 10%;
 }
 
 .RedRegularButton{
-    padding:.5em 1em;
-    margin: 0.25em .25em;
-    background-color: #a72828;
+  padding:.5em 1em;
+  margin: 0.25em .25em;
+  background-color: #a72828;
   }
 
-  .button {
-    text-align: center; 
-    line-height: normal; 
-    transition: background-color 0.3s ease; 
-  }
-  
-  .RedRegularButton.button:hover {
-    color: #070601; 
-    background-color: #bd1c1c;
-  }
+.button {
+  text-align: center; 
+  line-height: normal; 
+  transition: background-color 0.3s ease; 
+}
 
-  .RedRegularButton.button {
-    background-color: #7e0000;
-  }
+.RedRegularButton.button:hover {
+  color: #070601; 
+  background-color: #bd1c1c;
+}
+
+.RedRegularButton.button {
+  background-color: #7e0000;
+}
 
 .missionButtons {
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-  }
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+}
 
 .regularButton{
-    padding:.5em 1em;
-    margin: 0.25em .25em;
-    background-color: #28a745;
-  }
+  padding:.5em 1em;
+  margin: 0.25em .25em;
+  background-color: #28a745;
+}
 
-  .button {
-    text-align: center; 
-    line-height: normal; 
-    transition: background-color 0.3s ease; 
-  }
-  
-  .regularButton.button:hover {
-    color: #070601; 
-    background-color: #1cbd44;
-  }
+.button {
+  text-align: center; 
+  line-height: normal; 
+  transition: background-color 0.3s ease; 
+}
 
-  .regularButton.button {
-    background-color: #105220;
-  }
+.regularButton.button:hover {
+  color: #070601; 
+  background-color: #1cbd44;
+}
+
+.regularButton.button {
+  background-color: #105220;
+}
+
+#textAndBatteryContainerContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
 .textContainer {
-    align-items: flex-start;
-    justify-content: center;
-    flex-wrap: wrap;
-    text-align: center; 
-    margin-top: 20px;
+  display: flex;
+  margin-right: 20%;
+  width: 600px;
+  justify-content: center; 
+  align-items: flex-start; 
+  text-align: left; 
+  flex-direction: column;
+}
+
+#batteryContainer {
+  display: block;
+  position: relative; 
+  height: 200px;
+  padding: 50px;
+  margin-left: 20%;
 }
 
 #droneStatus {
-    font-size: 30px; 
-    text-decoration: none;
+  font-size: 200%; 
+  font-weight: bold;
+  text-decoration: none;
+  text-align: left;
 }
 
 #currentRoute {
-    font-size: 20px;
+  font-size: 150%;
+  text-align: left;
 }
 
 #connectionStrength {
-    font-size: 16px;
+  text-align: left;
 }
 

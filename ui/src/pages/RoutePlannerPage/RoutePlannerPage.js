@@ -10,7 +10,7 @@ const RoutePlannerPage = () => {
     const [shape, setShape] = useState([])
     
     const makeRequest = () => {
-        fetch('http://localhost:5000/fly-mission', {
+        fetch('http://127.0.0.1:5000/fly-mission', { // if getting a CORS error, use 127.0.0.1 instead (localhost alias)
             method: 'post',
             mode: 'cors',
             headers: {'Content-Type':'application/json'},

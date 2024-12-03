@@ -24,14 +24,9 @@ const MainPage = (props) => {
     <div>
       <br/>
       <br/>
-      <div className="textContainer">
-      <p id="droneStatus">Status: On Mission</p> { /*TODO update this to reflect actual data*/ }
-      <p id="currentRoute">Current Route: None</p> { /*TODO update this to reflect actual data*/ }
-      <p id="connectionStrength">Connection Strength: 🟨🟨🟨</p> { /*TODO update this to reflect actual data*/ }
-      <p id="lastUpdated">Last Updated: 2 mins ago</p> { /*TODO update this to reflect actual data*/ }
-      </div>
-      <div className="buttonContainer">
-        <BatteryGauge 
+      <div id="textAndBatteryContainerContainer">
+      <div id="batteryContainer">
+      <BatteryGauge 
           className="battery" 
           value={9 /* TODO update to get battery level from drone */} 
           size={200} 
@@ -44,6 +39,15 @@ const MainPage = (props) => {
             strokeColor: theme == "light" ? "black" : "white"
           }}}
           />
+      </div>
+      <div className="textContainer">
+      <p id="droneStatus">Status: On Mission</p> { /*TODO update this to reflect actual data*/ }
+      <p id="currentRoute">Current Route: None</p> { /*TODO update this to reflect actual data*/ }
+      <p id="connectionStrength">Connection Strength: 🟨🟨🟨</p> { /*TODO update this to reflect actual data*/ }
+      <p id="lastUpdated">Last Updated: 2 mins ago</p> { /*TODO update this to reflect actual data*/ }
+      </div>
+      </div>
+      <div className="buttonContainer">
         <Ringer />
         <ButtonWithIcon url="/routes" buttonIcon="https://img.icons8.com/pastel-glyph/64/route--v1.png" buttonText={t('routePlanner')} />
         <ButtonWithIcon url="/savedMaps" buttonIcon="https://img.icons8.com/64/map.png" buttonText={t('savedMaps')} />

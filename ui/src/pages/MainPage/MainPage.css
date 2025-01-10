@@ -1,3 +1,15 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#mainPage {
+  padding: 0;
+  margin: 0;
+  height: 480px;
+  width: 800px;
+}
+
 #button-link-settings {
   padding: 1px 1px;   
   border: none;         
@@ -15,12 +27,15 @@
 }
 
 .buttonContainer {
+  position: relative;
+  bottom: 0;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
   margin-right: 10%;
   margin-left: 10%;
+  padding-bottom: 30px;
 }
 
 .RedRegularButton{
@@ -82,12 +97,14 @@ html[data-theme="dark"] .regularButton.button:hover {
 }
 
 #textAndBatteryContainerContainer {
+  position: relative;
+  top: 0;
   display: flex;
   flex-direction: row;
-  margin-top: 5%;
-  margin-bottom: 5%;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 0%;
+  margin-bottom: 0%;
 }
 
 .textContainer {

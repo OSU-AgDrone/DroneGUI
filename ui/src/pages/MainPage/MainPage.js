@@ -34,7 +34,7 @@ const MainPage = (props) => {
   }
 
   return (
-    <div>
+    <div id="mainPage">
       <br/>
       <br/>
       <div id="textAndBatteryContainerContainer">

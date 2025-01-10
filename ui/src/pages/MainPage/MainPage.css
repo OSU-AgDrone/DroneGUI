@@ -35,8 +35,13 @@
   transition: background-color 0.3s ease; 
 }
 
-.RedRegularButton.button:hover {
+html[data-theme="light"] .RedRegularButton.button:hover {
   color: #070601; 
+  background-color: #bd1c1c;
+}
+
+html[data-theme="dark"] .RedRegularButton.button:hover {
+  color: #E5E9F0; 
   background-color: #bd1c1c;
 }
 
@@ -62,8 +67,13 @@
   transition: background-color 0.3s ease; 
 }
 
-.regularButton.button:hover {
+html[data-theme="light"] .regularButton.button:hover {
   color: #070601; 
+  background-color: #1cbd44;
+}
+
+html[data-theme="dark"] .regularButton.button:hover {
+  color: #E5E9F0; 
   background-color: #1cbd44;
 }
 
@@ -114,3 +124,8 @@
   text-align: left;
 }
 
+a {
+  padding:.5em 1em;
+  margin: 0.25em .25em;
+  transition: background-color 0.3s ease; 
+}

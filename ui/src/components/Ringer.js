@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import '../App.css';
 
@@ -19,15 +20,15 @@ const Ringer = () => {
     const { t } = useTranslation();
 
     return (
-        <a> 
-        <button
+        <Link>
+        <div
             onClick={() => handleActiveChange('ringer')}
             id={`${activeButton === "ringer" ? 'activeButton' : ''}`}
             className="button">
             <img className='buttonIcon' src="https://img.icons8.com/ios-filled/50/alarm" width="48" height="48" alt="Ringer" />
             {activeButton === "ringer" ? t("deactivateRinger") : t("activateRinger")}
-        </button>
-        </a>
+        </div>
+        </Link> 
     );
 };
 

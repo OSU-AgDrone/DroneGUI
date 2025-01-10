@@ -10,9 +10,20 @@
 }
 
 .mapContainer {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 20%;
+    width: 30%;
+    height: 30%;
 }
 
+#backButton {
+    position: fixed;
+    margin-top: 2rem;
+    bottom: 5%;
+}
 
 .button-container {
     display: flex;

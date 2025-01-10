@@ -3,19 +3,17 @@ echo "Script started!"
 
 # Install dependencies
 zenity --progress --title="AgDrone" --text="Installing base dependencies..." --auto-close --percentage=5
-
 sudo apt update -y # update things
 sudo apt upgrade -y # upgrade things
-zenity --progress --title="AgDrone" --text="Installing base dependencies..." --auto-close --percentage=30
+echo "30"
 sudo apt install python3 python3-pip git firefox -y # install python in case it's not installed
 #sudo apt install python3 idle3 python3-pip git python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame -y
 sudo usermod -a -G dialout $USER # add user to dialout group
-zenity --progress --title="AgDrone" --text="Installing base dependencies..." --auto-close --percentage=70
+echo "70"
 sudo apt-get install nodejs npm -y
 node -v # verifies the right Node.js version is in the environment
 npm -v # verifies the right npm version is in the environment
-
-zenity --progress --title="AgDrone" --text="Installing base dependencies..." --auto-close --percentage=100
+echo "100"
 
 # create virtual environment
 zenity --progress --title="AgDrone" --text="Creating virtual environment..." --auto-close --percentage=0

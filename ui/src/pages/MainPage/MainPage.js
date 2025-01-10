@@ -48,8 +48,16 @@ const MainPage = (props) => {
         <ButtonWithIcon url="/routes" buttonIcon="https://img.icons8.com/pastel-glyph/64/route--v1.png" buttonText={t('routePlanner')} />
         <ButtonWithIcon url="/savedMaps" buttonIcon="https://img.icons8.com/64/map.png" buttonText={t('savedMaps')} />
         <ButtonWithIcon link_id="button-link-settings" div_id="button-div-settings" img_id="button-img-settings" url="/settings" buttonIcon="https://img.icons8.com/?size=100&id=2969&format=png&color=000000" alt="settings--v1"  />
+        <div className="routeButtons">
+          <a href="/RoutePlannerPage">
+            <ButtonWithIcon url="/routes" buttonText={t("+ New Route")} />
+          </a>
+          <a href="/SavedMapsPage">
+            <button className="RegularButton button">{t("Load Route")}</button>
+          </a>
+        </div>
         <div className="missionButtons">
-          <button className="regularButton button">{t("Start Mission")}</button>
+          <button className="GreenRegularButton button">{t("Start Mission")}</button>
           <button className="RedRegularButton button">{t("Return Home")}</button>
         </div>
       </div>

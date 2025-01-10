@@ -35,8 +35,6 @@ const MainPage = (props) => {
 
   return (
     <div id="mainPage">
-      <br/>
-      <br/>
       <div id="textAndBatteryContainerContainer">
       <div id="batteryContainer">
       <BatteryGauge 

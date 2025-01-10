@@ -50,7 +50,7 @@ export default function MapDrawShape(props) {
 
   return (
     <>
-      <div  id="map-container">
+      <div id="map-container">
         <GoogleMapReact 
           bootstrapURLKeys={props.mapBootstrap}
           options={props.mapOptions}

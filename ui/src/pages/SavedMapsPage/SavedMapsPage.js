@@ -2,90 +2,76 @@ import './SavedMapsPage.css';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import '../../App.css';
-import BatteryGauge from 'react-battery-gauge'
 
 const SavedMapsPage = (props) => {
     const { t } = useTranslation();
-    const baseCustomization = {
-          batteryMeter: {
-            outerGap: 0,
-            gradFill: [
-              { color: 'red', offset: 0 },
-              { color: 'orange', offset: 15 },
-              { color: 'green', offset: 90 },
-            ],
-          },
-          readingText: {
-            lightContrastColor: 'black',
-            darkContrastColor: 'white',
-            lowBatteryColor: 'red',
-          },
-    }
-    
-    const applyThemeCustomization = () => {
-        const theme = document.documentElement.getAttribute('data-theme');
 
-        let themeCustomization = {};
-        if(theme === 'dark' || theme === 'black'){
-            themeCustomization = {
-            batteryBody: {
-                fill: 'white',
-                strokeColor:  'white',
-                strokeWidth: 2,
-            },
-                batteryCap: {
-                    fill: 'white',
-                    strokeColor: 'white',
-                    cornerRadius: 3,
-                    strokeWidth: 0,
-                    capToBodyRatio: 0.4,
-                },
-            };
-        }else if(theme === 'light' || theme === 'white'){
-            themeCustomization = {
-                batteryBody: {
-                    fill: 'black',
-                    strokeColor: 'black',
-                    strokeWidth: 2,
-                  },
-                  batteryCap: {
-                    fill: 'black',
-                    strokeColor: 'black',
-                    cornerRadius: 3,
-                    strokeWidth: 0,
-                    capToBodyRatio: 0.4,
-                  },
-            };
-        }
-        return { ...baseCustomization, ...themeCustomization };
-      };
-      const customization = applyThemeCustomization();
+    const getCoordsRequest = () => {
+        fetch('http://127.0.0.1:5000/get-coords', {
+            method: 'get',
+            mode: 'cors',
+            headers: {'Content-Type':'application/json'}
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`);
+            }
+            return response.json();
+        }).then(data => {
+            console.log(data)
+            displayRoutes(data)
+        }).catch(error => console.error('Error', error))
+    }
+
+    const displayRoutes = (coordinates) => {
+        const coordinatesList = document.getElementById('coordinatesList');
+        coordinatesList.innerHTML = ''; // Clear previous list
+    
+        coordinates.forEach((coord, index) => {
+            const coordinateItem = document.createElement('div');
+            coordinateItem.classList.add('coordinate-item');
+            coordinateItem.textContent = `${coord.name}`;
+            coordinateItem.onclick = () => loadCoordinate(coord); // Handle selection
+            coordinatesList.appendChild(coordinateItem);
+        });
+    
+        // show the modal
+        document.getElementById('coordinateModal').style.display = 'block';
+    };
+
+    const closeModal = () => {
+        document.getElementById('coordinateModal').style.display = 'none';
+    };
+
+    const loadCoordinate = (coord) => {
+        console.log('Loaded coordinate:', coord.name);
+        // TODO add logic to actually send this route to the map/drone, save on frontend somehow
+        // TODO reflect this also in "Current Route" on homepage
+        console.log(coord);
+        // close the modal after selection
+        closeModal();
+    };
 
     return (
         <>
-            <h1 className='title'>{t("savedMaps")} <img id="titleImg" src="https://img.icons8.com/45/map.png"></img></h1>
+            <h1 className='title'>{t("savedMaps")}</h1>
             <div className='pageContainer'>
-            <BatteryGauge value={9} size={200} orientation="vertical" customization={customization} />  {/*change battery value to get battery from drone */}
                 <div className='button-container'>
-                    <button className='button findDroneButton' style={{ "marginTop": "3rem" }}>
+                    <button className='button findDroneButton' style={{ "marginTop": "3rem" }} onClick={getCoordsRequest}>
                         {t("loadMap")}
                     </button>
-                    <h2>{t("droneCommands")}</h2>
-
-                    <button className='button findDroneButton' >
-                        {t("takeOff")}
-                        <img style={{marginLeft:".5rem"}} width="35" height="35" src="https://img.icons8.com/ios/50/airplane-take-off.png" alt="airplane-take-off"/>
-                    </button>
-                    <button className='button findDroneButton' >
-                        {t("land")}
-                        <img style={{marginLeft:".5rem"}} width="35" height="35" src="https://img.icons8.com/ios/50/airplane-landing.png" alt="airplane-landing"/>
-                    </button>
-
-                    <h2>{t("Main Page")}</h2>
                     <Link className='regularButton' to='/'>
                         {t("back")}
                     </Link>
                 </div>
+            </div>
+
+            {/* <!-- Modal for showing coords/routes --> */}
+            <div id="coordinateModal" class="modal">
+            <div class="modal-content">
+                <h2 id="modalHeader">Select a Route</h2>
+                <div id="coordinatesList"></div>
+                <button onClick={closeModal}>Close</button>
+            </div>
             </div>
             
             <div style={{ bottom: "0", fontSize:"xx-small",marginBottom:"0rem", padding:"0" }}>

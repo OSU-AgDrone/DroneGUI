@@ -10,3 +10,43 @@ html[data-theme="light"] .regularButton {
   padding:.5em 1em;
   margin: 0.25em .25em;
 }
+
+ /* Modal styles */
+ .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%; 
+  background-color: rgba(0, 0, 0, 0.4); /* Fallback background */
+  padding-top: 60px;
+}
+
+#modalHeader {
+  color: #000000
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  width: 80%;
+  color: #000000
+}
+
+.coordinate-item {
+  margin: 10px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+html[data-theme="light"] div.coordinate-item:hover {
+  background-color:#CCD5AE;
+}
+
+html[data-theme="dark"] div.coordinate-item:hover {
+  background-color:#494d5a;
+  color: #FFFFFF
+}

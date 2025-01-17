@@ -189,5 +189,31 @@ async def execute_mission_plan():
         await app.drone_system.mission.start_mission()
         print("Mission started")
         
+@app.route('/save-coords', methods=['POST'])
+async def save_coords():
+    if request.method == 'POST':
+        coords = request.json
+        if coords is None:
+            return jsonify({'error': 'Error: coords received were None'}), 400
+        print(coords)
+        # get current state of file
+        with open('saved_routes.json', 'r') as db:
+            data = json.load(db)
+        # add to data
+        data.append(coords)
+        # write it back
+        with open('saved_routes.json', 'w') as db:
+            json.dump(data, db, indent=4)
+        return jsonify({'message': 'Success: coords saved to database'}), 200
+
+@app.route('/get-coords', methods=['GET'])
+async def get_coords():
+    if request.method == 'GET':
+        with open('saved_routes.json', 'r') as db:
+            data = json.load(db)
+            return jsonify(data), 200
+    else:
+        return jsonify({'error': 'Invalid HTTP request method'})
+
 if __name__ == '__main__':
     app.run()

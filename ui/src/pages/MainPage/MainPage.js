@@ -9,6 +9,9 @@ import BatteryGauge from 'react-battery-gauge'
 
 const MainPage = (props) => {
   const { t } = useTranslation();
+  const [fontSize, setFontSize] = useState(() => {
+          return localStorage.getItem('fontSize') || 16;
+      });
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
@@ -48,6 +51,9 @@ const MainPage = (props) => {
             },
           batteryCap: {
             strokeColor: theme == "light" ? "black" : "white"
+          },
+          readingText: {
+            fontSize: fontSize
           }}}
           />
       </div>

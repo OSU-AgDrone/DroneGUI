@@ -30,10 +30,30 @@ export default function MapDrawShape(props) {
     setState(prevState => ({ ...prevState, mapLoaded: true }));
   }
 
+  const saveCoordsRequest = (shape, the_name) => {
+    fetch('http://127.0.0.1:5000/save-coords', { // if getting a CORS error, use 127.0.0.1 instead (localhost alias)
+        method: 'post',
+        mode: 'cors',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+            "name": the_name,
+            "shape": shape
+            })
+    })
+  }
+
   function onDrawCallback(shape) {
+    // These two lines might shortly become outdated, depending on how we implement the db
     document.documentElement.setAttribute("unsavedChanges", "true")
     setState(prevState => ({ ...prevState, shape, drawingMode: false }));
-    props.callback(shape)
+    //console.log(shape); 
+    const the_name = window.prompt("Enter a name for this route:", "Default Name");
+    // only save if user provided a name
+    if (the_name) {
+        saveCoordsRequest(shape, the_name);
+    } else {
+        alert("No name entered. Coordinates were not saved.");
+    }
   }
 
   function setDrawingMode(drawingMode) {
@@ -76,7 +96,7 @@ export default function MapDrawShape(props) {
 }
 MapDrawShape.defaultProps = {
   mapBootstrap: {
-    key: 'AIzaSyCn8eV4OJCGnktvuqI5DmfXqb-g1xn6LVk',
+    key: 'AIzaSyCn8eV4OJCGnktvuqI5DmfXqb-g1xn6LVk', // TODO what is this key? is this OK to have in plaintext?
     libraries: ['drawing']
   },
   mapOptions: {

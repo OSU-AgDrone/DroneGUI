@@ -9,6 +9,7 @@ echo "Starting backend..."
 source drone-gui-venv/bin/activate
 cd backend
 python3 app.py &
+cd ..
 
 # start the React frontend 
 echo "Starting frontend..."

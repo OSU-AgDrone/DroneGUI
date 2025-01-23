@@ -42,12 +42,20 @@ export default function MapDrawShape(props) {
     })
   }
 
+  // generate a unique name for the default save file, in case we can't get an on-screen keyboard to the Pi
+  function generateUniqueName() {
+    const now = new Date(); // get the current date and time
+    const formattedDate = now.toISOString().replace(/T/, '_').replace(/\..+/, '').replace(/:/g, '-');
+    const uniqueName = `save_${formattedDate}`;
+    return uniqueName;
+}
+
   function onDrawCallback(shape) {
     // These two lines might shortly become outdated, depending on how we implement the db
     document.documentElement.setAttribute("unsavedChanges", "true")
     setState(prevState => ({ ...prevState, shape, drawingMode: false }));
     //console.log(shape); 
-    const the_name = window.prompt("Enter a name for this route:", "Default Name");
+    const the_name = window.prompt("Enter a name for this route:", generateUniqueName());
     // only save if user provided a name
     if (the_name) {
         saveCoordsRequest(shape, the_name);

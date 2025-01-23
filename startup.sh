@@ -7,7 +7,8 @@ git pull
 # start the backend
 echo "Starting backend..."
 source drone-gui-venv/bin/activate
-python3 backend/app.py &
+cd backend
+python3 app.py &
 
 # start the React frontend 
 echo "Starting frontend..."

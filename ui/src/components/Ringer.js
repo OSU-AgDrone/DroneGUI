@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import '../App.css';
+
 
 const Ringer = () => {
     const [activeButton, setActiveButton] = useState(localStorage.getItem('activeButton') || '');
@@ -18,18 +20,15 @@ const Ringer = () => {
     const { t } = useTranslation();
 
     return (
-        <button
+        <Link>
+        <div
             onClick={() => handleActiveChange('ringer')}
             id={`${activeButton === "ringer" ? 'activeButton' : ''}`}
-            className="button findDroneButton"
-            style={{
-                display: "flex",
-                marginBottom: "2rem"
-            }}
-        >
-            <img className='ringerButton' style={{ marginTop: "1px", paddingRight: "5px" }} src="https://img.icons8.com/ios-filled/50/alarm" width="24" height="24" alt="Ringer" />
+            className="button">
+            <img className='buttonIcon' src="https://img.icons8.com/ios-filled/50/alarm" width="48" height="48" alt="Ringer" />
             {activeButton === "ringer" ? t("deactivateRinger") : t("activateRinger")}
-        </button>
+        </div>
+        </Link> 
     );
 };
 

@@ -27,19 +27,11 @@ const ThemeSelector = () => {
             <h2>{t("theme")}:</h2>
             <button onClick={() => handleThemeChange('light')}
                 className={activeTheme === 'light' ? 'active' : ''}>
-                {t("brownLight")}
+                {t("light")}
             </button>
             <button onClick={() => handleThemeChange('dark')}
                 className={activeTheme === 'dark' ? 'active' : ''}>
-                {t("blueDark")}
-            </button>
-            <button onClick={() => handleThemeChange('black')}
-                className={activeTheme === 'black' ? 'active' : ''}>
-                {t("blackDark")}
-            </button>
-            <button onClick={() => handleThemeChange('white')}
-                className={activeTheme === 'white' ? 'active' : ''}>
-                {t("whiteLight")}
+                {t("dark")}
             </button>
         </div>
     );

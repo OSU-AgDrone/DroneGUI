@@ -10,9 +10,20 @@
 }
 
 .mapContainer {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 20%;
+    width: 30%;
+    height: 30%;
 }
 
+#backButton {
+    position: fixed;
+    margin-top: 2rem;
+    bottom: 5%;
+}
 
 .button-container {
     display: flex;
@@ -28,6 +39,19 @@
 }
 
 
-html[data-theme="dark"] #titleImg :not(#map-container), html[data-theme="black"] #titleImg :not(#map-container) {
+html[data-theme="dark"] #titleImg :not(#map-container) {
     filter: invert(100%) hue-rotate(180deg);
+}
+
+html[data-theme="dark"] .regularButton {
+    box-shadow: .2px .5px 1.5px .2px rgba(255, 255, 255, 0.603);
+ }
+
+html[data-theme="light"] .regularButton {
+    box-shadow: .5px 1px 2px .5px rgba(35, 35, 35, 0.323);
+}
+
+.regularButton{
+  padding:.5em 1em;
+  margin: 0.25em .25em;
 }

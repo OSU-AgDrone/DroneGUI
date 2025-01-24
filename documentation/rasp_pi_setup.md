@@ -13,4 +13,4 @@ For installing the operating system, follow the [official installation instructi
         - If the network you added when using the Raspberry Pi Imager is connected, then you don't need to do anything. 
         - If you did not set a network or the network you set is not connecting, tap on it to connect.
 3. Open the Terminal application, which is the black icon with an angle bracket on it, on the topbar. Next, paste this command and press enter/return to start the install process.
-code/curl https://raw.githubusercontent.com/OSU-AgDrone/DroneGUI/refs/heads/main/install.sh | bash
+`curl https://raw.githubusercontent.com/OSU-AgDrone/DroneGUI/refs/heads/main/install.sh | bash`

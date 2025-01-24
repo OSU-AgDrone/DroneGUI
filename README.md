@@ -9,6 +9,9 @@ An open source agricultural drone built by students at Oregon State University
 2. Have your drone completely wired, connected, and setup.
    - We have a [parts list](documentation/parts_list.md) for the version we used for testing and prototyping.
 3. If you are using a Transmitter controller, ensure it is connected according to the manufacturers instructions.
+4. Copy and paste this command in the terminal to install the AgDrone software auto-magically
+   - curl https://raw.githubusercontent.com/AgDrone/AgDroneGUI/main/install.sh | bash
+
 
 ### General Startup
 1. Plug in your drone batteries

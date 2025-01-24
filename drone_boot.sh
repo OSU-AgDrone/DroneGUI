@@ -1,4 +1,5 @@
 #!/bin/bash
 cd ../../dev/DroneGUI # move to dev/drone folder
-# run setup script
-# run startup script
+./setup.sh # run setup script
+wait # wait for setup to finish
+./startup.sh # run startup script

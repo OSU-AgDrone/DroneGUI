@@ -52,10 +52,12 @@ const SavedMapsPage = (props) => {
             <div class="modal-content">
                 <h2 id="modalHeader">Select a Route</h2> 
                 <div id="coordinatesList"></div>
-                <Link className='button' class="button routeButton" onClick={null/*TODO actually load*/}>Select</Link>
-                <Link className='button' class=' button routeButton' to='/'>
-                {t("back")}
-                </Link>
+                <div id="savedButtons">
+                    <Link className='button' class="button routeButton" onClick={null/*TODO actually load*/}>Select</Link>
+                    <Link className='button' class=' button routeButton' to='/'>
+                    {t("back")}
+                    </Link>
+                </div>
             </div>
         </>
     );

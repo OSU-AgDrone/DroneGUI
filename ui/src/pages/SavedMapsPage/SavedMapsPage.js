@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import '../../App.css';
 
+// store the selected route (will be sent to localStorage when submitted)
+let route = null;
+
+// save route to local storage, persisting across pages
+function saveSelectedRoute() {
+    localStorage.setItem('selectedRoute', route);
+    console.log("saved")
+}
 
 export const getCoordsRequest = () => {
     fetch('http://127.0.0.1:5000/get-coords', {
@@ -24,21 +32,22 @@ const displayRoutes = (coordinates) => {
     const coordinatesList = document.getElementById('coordinatesList');
     coordinatesList.innerHTML = ''; // Clear previous list
 
+    // create html for each coord
     coordinates.forEach((coord, index) => {
         const coordinateItem = document.createElement('div');
         coordinateItem.classList.add('coordinate-item');
         coordinateItem.setAttribute('tabindex', '0');
         coordinateItem.textContent = `${coord.name}`;
-        coordinateItem.onclick = () => loadCoordinate(coord); // Handle selection
         coordinatesList.appendChild(coordinateItem);
     });
-};
 
-const loadCoordinate = (coord) => {
-    console.log('Loaded coordinate:', coord.name);
-    // TODO add logic to actually send this route to the map/drone, save on frontend somehow
-    // TODO reflect this also in "Current Route" on homepage
-    console.log(coord);
+    // add focus event listeners to know which is selected
+    document.querySelectorAll('.coordinate-item').forEach(div => {
+    div.addEventListener('focus', function () {
+      route = this.textContent;
+      console.log(`Focused Value: ${route}`);
+    });
+  });
 };
 
 const SavedMapsPage = (props) => {
@@ -49,12 +58,12 @@ const SavedMapsPage = (props) => {
         <>
             <body onload={getCoordsRequest()}></body>
             <h1 className='title'>{t("savedMaps")}</h1>
-            <div class="modal-content">
+            <div className="modal-content">
                 <h2 id="modalHeader">Select a Route</h2> 
                 <div id="coordinatesList"></div>
                 <div id="savedButtons">
-                    <Link className='button' class="button routeButton" onClick={null/*TODO actually load*/}>Select</Link>
-                    <Link className='button' class=' button routeButton' to='/'>
+                    <Link className='button routeButton' onClick={saveSelectedRoute}>Select</Link>
+                    <Link className='button routeButton' to='/'>
                     {t("back")}
                     </Link>
                 </div>

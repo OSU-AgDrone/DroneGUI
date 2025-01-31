@@ -18,7 +18,12 @@ Node.js must be [installed](https://nodejs.org/en/download/package-manager) on t
 3. Navigate to the site, which by default will be at `http://localhost:3000`
 
 ### Troubleshooting
-- If the frontend and backend aren't communicating, be sure to check the console output using the developer tools in your browser. A CORS error may be fixed by restarting both apps and/or interchanging `localhost` for `127.0.0.1`, though these are sort of random successes we've had in these cases and not guaranteed fixes. The backend IS configured to support local cross-origin requests (since both the frontend and backend are hosted on the same device), so CORS errors generally indicate an issue with the backend. **Be sure the backend is started with the given instructions or it may not correctly configure CORS and will reject requests from the frontend**.
+- If the frontend and backend aren't communicating, be sure to check the console output using the developer tools in your browser. A CORS error might be fixed by restarting both apps and/or interchanging `localhost` for `127.0.0.1`, though these are sort of random successes we've had in these cases and not guaranteed fixes. The backend IS configured to support local cross-origin requests (since both the frontend and backend are hosted on the same device), so CORS errors generally indicate an issue with the backend. **Be sure the backend is started with the given instructions or it may not correctly configure CORS policies and will reject requests from the frontend**.
 
 ## TODOs
+Many aesthetic and organizational features of the UI have been completed, but not all of the features have been hooked up to the backend so they won't actually trigger action in the drone. Much of the work to be done involves the backend. The (issues)[https://github.com/orgs/OSU-AgDrone/projects/1/views/1] show all outstanding tasks we were not able to complete and encourage the next teams to work towards. 
 
+## Contact
+For critical questions, please reach out on Discord to: 
+`@jamopopper` for installation, tablet, or other hardware-adjacent issues
+`@seadragon92` for UI, backend, or CORS/network-adjacent issues 

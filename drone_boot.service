@@ -1,0 +1,10 @@
+[Unit]
+Description=Drone Boot Service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash /dev/DroneGUI/startup.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

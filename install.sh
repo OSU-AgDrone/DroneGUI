@@ -1,10 +1,12 @@
 #!/bin/bash
 sudo apt install git -y # install git 
 
-sudo cd /dev # move to dev folder
+cd /dev # move to dev folder
 sudo git clone https://github.com/OSU-AgDrone/DroneGUI.git # clone repository
-sudo cd DroneGUI # move to repository
+wait
+cd DroneGUI # move to repository
 sudo git checkout main # checkout main branch
+wait
 sudo ./setup.sh # run setup script
 wait
 

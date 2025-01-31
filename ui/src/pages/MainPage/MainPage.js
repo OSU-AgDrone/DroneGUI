@@ -10,8 +10,11 @@ import getCoordsRequest from '../SavedMapsPage/SavedMapsPage';
 const MainPage = (props) => {
   const { t } = useTranslation();
   const [fontSize, setFontSize] = useState(() => {
-          return localStorage.getItem('fontSize') || 16;
-      });
+      return localStorage.getItem('fontSize') || 16;
+  });
+  const [route, setRoute] = useState(() => {
+      return localStorage.getItem('selectedRoute') || 'None';
+  });
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
@@ -59,7 +62,7 @@ const MainPage = (props) => {
       </div>
       <div className="textContainer">
       <p id="droneStatus">{t("status")}: On Mission</p> { /*TODO update this to reflect actual data*/ }
-      <p id="currentRoute">{t("currentRoute")}: None</p> { /*TODO update this to reflect actual data*/ }
+      <p id="currentRoute">{t("currentRoute")}: <span style={{ fontWeight: 'bold', color: '#047dba' }}>{route}</span></p> {}
       <p id="connectionStrength">{t("connectionStrength")}: 🟨 🟨 🟨</p> { /*TODO update this to reflect actual data*/ }
       <p id="lastUpdated">{t("lastUpdated")}: 2 mins ago</p> { /*TODO update this to reflect actual data*/ }
       </div>

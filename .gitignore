@@ -15,7 +15,7 @@ coverage
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-# OSX
+# OSXz
 .DS_Store
 
 release/app/dist
@@ -31,7 +31,8 @@ npm-debug.log.*
 # Python
 venv
 dronegui-env
-__pycache__
+backend/__pycache__/*
+backend/dronegui-env/*
 
 # VS Code
 .vscode

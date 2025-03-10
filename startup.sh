@@ -1,8 +1,7 @@
 #!/bin/bash
-
-# Update repo
-echo "Updating software..."
-git pull
+if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
+    git pull
+fi
 
 # start the backend
 echo "Starting backend..."
